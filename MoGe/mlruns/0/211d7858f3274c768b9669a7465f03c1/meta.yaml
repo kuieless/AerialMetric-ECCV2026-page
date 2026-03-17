@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/211d7858f3274c768b9669a7465f03c1/artifacts
+end_time: 1768901409224
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 211d7858f3274c768b9669a7465f03c1
+run_name: judicious-fox-422
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1768901269352
+status: 3
+tags: []
+user_id: szq

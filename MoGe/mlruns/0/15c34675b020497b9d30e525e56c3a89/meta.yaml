@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/15c34675b020497b9d30e525e56c3a89/artifacts
+end_time: 1768836529959
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 15c34675b020497b9d30e525e56c3a89
+run_name: sincere-ram-139
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1768836411838
+status: 3
+tags: []
+user_id: szq

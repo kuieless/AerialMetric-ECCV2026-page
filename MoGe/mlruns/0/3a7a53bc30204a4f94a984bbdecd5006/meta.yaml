@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/3a7a53bc30204a4f94a984bbdecd5006/artifacts
+end_time: 1768841474212
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 3a7a53bc30204a4f94a984bbdecd5006
+run_name: handsome-owl-738
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1768841466404
+status: 3
+tags: []
+user_id: szq

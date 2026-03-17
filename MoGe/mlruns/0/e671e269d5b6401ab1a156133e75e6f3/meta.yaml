@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/e671e269d5b6401ab1a156133e75e6f3/artifacts
+end_time: 1764475463388
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: e671e269d5b6401ab1a156133e75e6f3
+run_name: suave-bass-870
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1764475456484
+status: 3
+tags: []
+user_id: szq

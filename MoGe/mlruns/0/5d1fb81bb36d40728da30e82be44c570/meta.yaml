@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/5d1fb81bb36d40728da30e82be44c570/artifacts
+end_time: 1765273259379
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 5d1fb81bb36d40728da30e82be44c570
+run_name: charming-duck-819
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765272935398
+status: 3
+tags: []
+user_id: szq

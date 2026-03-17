@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/5dd16cd60de64eb0b05bb7121fac6bb8/artifacts
+end_time: 1769093922960
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 5dd16cd60de64eb0b05bb7121fac6bb8
+run_name: blushing-whale-32
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1769088471839
+status: 3
+tags: []
+user_id: szq

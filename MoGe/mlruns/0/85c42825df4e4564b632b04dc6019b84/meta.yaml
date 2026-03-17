@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/85c42825df4e4564b632b04dc6019b84/artifacts
+end_time: 1768901099851
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 85c42825df4e4564b632b04dc6019b84
+run_name: masked-sheep-249
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1768900962864
+status: 3
+tags: []
+user_id: szq

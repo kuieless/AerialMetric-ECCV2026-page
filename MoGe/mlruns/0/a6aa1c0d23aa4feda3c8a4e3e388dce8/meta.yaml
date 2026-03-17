@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/a6aa1c0d23aa4feda3c8a4e3e388dce8/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: a6aa1c0d23aa4feda3c8a4e3e388dce8
+run_name: receptive-grouse-246
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765266316848
+status: 1
+tags: []
+user_id: szq

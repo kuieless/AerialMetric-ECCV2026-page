@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/afb0051c9b2b438c921b4e4a170cffd5/artifacts
+end_time: 1765324326372
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: afb0051c9b2b438c921b4e4a170cffd5
+run_name: abrasive-midge-898
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765273875420
+status: 3
+tags: []
+user_id: szq

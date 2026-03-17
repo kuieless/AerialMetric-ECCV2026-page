@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/12d339737e6149b8897b265aaeb0c6b9/artifacts
+end_time: 1769507454369
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 12d339737e6149b8897b265aaeb0c6b9
+run_name: illustrious-ant-901
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1769507447908
+status: 3
+tags: []
+user_id: szq

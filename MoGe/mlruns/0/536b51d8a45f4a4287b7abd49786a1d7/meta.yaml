@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/536b51d8a45f4a4287b7abd49786a1d7/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 536b51d8a45f4a4287b7abd49786a1d7
+run_name: capricious-flea-681
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765004147441
+status: 1
+tags: []
+user_id: szq

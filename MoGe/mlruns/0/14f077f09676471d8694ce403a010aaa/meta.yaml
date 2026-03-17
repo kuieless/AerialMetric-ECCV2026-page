@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/14f077f09676471d8694ce403a010aaa/artifacts
+end_time: 1764476027925
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 14f077f09676471d8694ce403a010aaa
+run_name: receptive-dog-618
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1764476021209
+status: 3
+tags: []
+user_id: szq

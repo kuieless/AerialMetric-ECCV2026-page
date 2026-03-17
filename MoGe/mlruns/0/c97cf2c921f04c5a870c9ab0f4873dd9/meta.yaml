@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/c97cf2c921f04c5a870c9ab0f4873dd9/artifacts
+end_time: 1765273395456
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: c97cf2c921f04c5a870c9ab0f4873dd9
+run_name: nosy-gnu-8
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765273364128
+status: 3
+tags: []
+user_id: szq

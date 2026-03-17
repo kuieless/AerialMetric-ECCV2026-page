@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/1ae7c9bfb580402b990247e034406d21/artifacts
+end_time: 1768537059520
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 1ae7c9bfb580402b990247e034406d21
+run_name: secretive-dove-875
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1768536866305
+status: 3
+tags: []
+user_id: szq

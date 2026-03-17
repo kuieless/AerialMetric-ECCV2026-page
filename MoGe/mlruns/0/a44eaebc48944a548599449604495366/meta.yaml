@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/a44eaebc48944a548599449604495366/artifacts
+end_time: 1765266027684
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: a44eaebc48944a548599449604495366
+run_name: inquisitive-frog-464
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765265876471
+status: 3
+tags: []
+user_id: szq

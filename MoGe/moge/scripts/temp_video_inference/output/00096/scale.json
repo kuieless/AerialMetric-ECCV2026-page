@@ -1,0 +1,4 @@
+{
+    "metric_scale": 21.46875,
+    "formula": "metric_depth = relative_depth * metric_scale"
+}

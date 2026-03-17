@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/c8ffd3315a534ce7895ab801933d0eee/artifacts
+end_time: 1765366073088
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: c8ffd3315a534ce7895ab801933d0eee
+run_name: rebellious-calf-287
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765366014496
+status: 3
+tags: []
+user_id: szq

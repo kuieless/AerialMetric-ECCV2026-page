@@ -1,0 +1,318 @@
+{
+    "NYUv2": {
+        "depth_affine_invariant": {
+            "delta1": 0.9858134678744395,
+            "rel": 0.029898521773779156
+        },
+        "depth_metric": {
+            "delta1": 0.8608805459270051,
+            "rel": 0.1531562876520217,
+            "rmse": 0.464472503187733
+        },
+        "depth_scale_invariant": {
+            "delta1": 0.9797487885944705,
+            "rel": 0.037104693374565206
+        },
+        "disparity_affine_invariant": {
+            "delta1": 0.985662685166076,
+            "rel": 0.03506383701478236
+        },
+        "fov_x": {
+            "deviation": 0.695425191630014,
+            "mae": 1.931411305525759
+        },
+        "inference_time": 0.11543423320175311,
+        "points_affine_invariant": {
+            "delta1": 0.8612783384042211,
+            "rel": 0.15653381670970434
+        },
+        "points_metric": {
+            "delta1": 0.8612783384042211,
+            "rel": 0.15653381670970434,
+            "rmse": 0.2960446462724415
+        },
+        "points_scale_invariant": {
+            "delta1": 0.9798011592951025,
+            "rel": 0.043141955239214116
+        }
+    },
+    "KITTI": {
+        "depth_affine_invariant": {
+            "delta1": 0.8589951033972524,
+            "rel": 0.032759233927811306
+        },
+        "depth_metric": {
+            "delta1": 0.9052390482882323,
+            "rel": 0.11429087990506387,
+            "rmse": 3.5811497574569255
+        },
+        "depth_scale_invariant": {
+            "delta1": 0.8584977998141131,
+            "rel": 0.03613620613661646
+        },
+        "disparity_affine_invariant": {
+            "delta1": 0.9813455807650747,
+            "rel": 0.038850369730370087
+        },
+        "fov_x": {
+            "deviation": 7.6457700197773475,
+            "mae": 7.658571146062912
+        },
+        "inference_time": 0.12472264752066209,
+        "points_affine_invariant": {
+            "delta1": 0.9009288715807853,
+            "rel": 0.1324769855002684
+        },
+        "points_metric": {
+            "delta1": 0.9009288715807853,
+            "rel": 0.1324769855002684,
+            "rmse": 2.2269843142091132
+        },
+        "points_scale_invariant": {
+            "delta1": 0.8584473688498164,
+            "rel": 0.22386212317636395
+        }
+    },
+    "ETH3D": {
+        "depth_affine_invariant": {
+            "delta1": 0.6856747605727107,
+            "rel": 0.016510824590822936
+        },
+        "depth_metric": {
+            "delta1": 0.22325655184662085,
+            "rel": 0.5558242883680938,
+            "rmse": 2.9358043637832356
+        },
+        "depth_scale_invariant": {
+            "delta1": 0.6835162207681177,
+            "rel": 0.020955775972119315
+        },
+        "disparity_affine_invariant": {
+            "delta1": 0.9877099478822448,
+            "rel": 0.03286293240639459
+        },
+        "fov_x": {
+            "deviation": 0.5437123577570842,
+            "mae": 3.3089764868170963
+        },
+        "inference_time": 0.13133929164399136,
+        "local_points": {
+            "delta1": 0.9063070043253916,
+            "rel": Infinity
+        },
+        "points_affine_invariant": {
+            "delta1": 0.2163402093671033,
+            "rel": 0.5587482695849325
+        },
+        "points_metric": {
+            "delta1": 0.2163402093671033,
+            "rel": 0.5587482695849325,
+            "rmse": 1.9515074352335824
+        },
+        "points_scale_invariant": {
+            "delta1": 0.7750039506908439,
+            "rel": 0.2781882488530495
+        }
+    },
+    "iBims-1": {
+        "depth_affine_invariant": {
+            "delta1": 0.98958516061306,
+            "rel": 0.023949565493967383
+        },
+        "depth_metric": {
+            "delta1": 0.6585597948072427,
+            "rel": 0.3022160950675607,
+            "rmse": 1.0493847838789225
+        },
+        "depth_scale_invariant": {
+            "delta1": 0.9766733556985855,
+            "rel": 0.03620160129386932
+        },
+        "disparity_affine_invariant": {
+            "delta1": 0.9874488776922226,
+            "rel": 0.02905704498058185
+        },
+        "fov_x": {
+            "deviation": 2.842840769290924,
+            "mae": 4.4552938006818295
+        },
+        "inference_time": 0.1264634585380554,
+        "local_points": {
+            "delta1": 0.9719334256960417,
+            "rel": 0.03979958222455553
+        },
+        "points_affine_invariant": {
+            "delta1": 0.6374043300728044,
+            "rel": 0.3124807906523347
+        },
+        "points_metric": {
+            "delta1": 0.6374043300728044,
+            "rel": 0.3124807906523347,
+            "rmse": 0.6701963176205754
+        },
+        "points_scale_invariant": {
+            "delta1": 0.9801703953742981,
+            "rel": 0.05483046555891633
+        }
+    },
+    "DDAD": {
+        "depth_affine_invariant": {
+            "delta1": 0.11770981860160827,
+            "rel": 0.008478453502990306
+        },
+        "depth_metric": {
+            "delta1": 0.6065873000101419,
+            "rel": 0.24871605672687291,
+            "rmse": 7.153382727742195
+        },
+        "depth_scale_invariant": {
+            "delta1": 0.11651425623893738,
+            "rel": 0.009298626138828694
+        },
+        "disparity_affine_invariant": {
+            "delta1": 0.936910511791706,
+            "rel": 0.07762050437834114
+        },
+        "fov_x": {
+            "deviation": 2.5371476091532967,
+            "mae": 5.508389597146306
+        },
+        "inference_time": 0.11863957715034484,
+        "local_points": {
+            "delta1": 0.790130805609693,
+            "rel": Infinity
+        },
+        "points_affine_invariant": {
+            "delta1": 0.6107776425931369,
+            "rel": 0.25416856686025857
+        },
+        "points_metric": {
+            "delta1": 0.6107776425931369,
+            "rel": 0.25416856686025857,
+            "rmse": 4.512134196639061
+        },
+        "points_scale_invariant": {
+            "delta1": 0.11685784803090246,
+            "rel": 4.296001814473421
+        }
+    },
+    "DIODE": {
+        "depth_affine_invariant": {
+            "delta1": 0.6800765150097403,
+            "rel": 0.017950270943713268
+        },
+        "depth_metric": {
+            "delta1": 0.453603686921925,
+            "rel": 0.3500216008851307,
+            "rmse": 3.7896040222437235
+        },
+        "depth_scale_invariant": {
+            "delta1": 0.6638983021334451,
+            "rel": 0.030839336867505823
+        },
+        "disparity_affine_invariant": {
+            "delta1": 0.9769331423225106,
+            "rel": 0.03746816922304125
+        },
+        "fov_x": {
+            "deviation": 4.444452181898164,
+            "mae": 4.670596735129174
+        },
+        "inference_time": 0.12356848011684789,
+        "local_points": {
+            "delta1": 0.9012985800962974,
+            "rel": Infinity
+        },
+        "points_affine_invariant": {
+            "delta1": 0.4337793638621597,
+            "rel": 0.3641897297178029
+        },
+        "points_metric": {
+            "delta1": 0.4337793638621597,
+            "rel": 0.3641897297178029,
+            "rmse": 2.3238279869883827
+        },
+        "points_scale_invariant": {
+            "delta1": 0.6804363583776878,
+            "rel": 1.0109863902824205
+        }
+    },
+    "HAMMER": {
+        "depth_affine_invariant": {
+            "delta1": 0.9941992866608405,
+            "rel": 0.026052940702366252
+        },
+        "depth_metric": {
+            "delta1": 0.5314416412855509,
+            "rel": 0.6226298925520912,
+            "rmse": 0.4737282115509433
+        },
+        "depth_scale_invariant": {
+            "delta1": 0.9936726214039711,
+            "rel": 0.033178512429998766
+        },
+        "disparity_affine_invariant": {
+            "delta1": 0.9952956037367544,
+            "rel": 0.02682337014905868
+        },
+        "fov_x": {
+            "deviation": 6.841582071709056,
+            "mae": 7.1255012914586455
+        },
+        "inference_time": 0.12010710900829684,
+        "points_affine_invariant": {
+            "delta1": 0.47355041765057676,
+            "rel": 0.6583909834104199
+        },
+        "points_metric": {
+            "delta1": 0.47355041765057676,
+            "rel": 0.6583909834104199,
+            "rmse": 0.3098294811287234
+        },
+        "points_scale_invariant": {
+            "delta1": 0.9904737345633968,
+            "rel": 0.06214169468730688
+        }
+    },
+    "mean": {
+        "depth_affine_invariant": {
+            "delta1": 0.7588648732470931,
+            "rel": 0.02222854441935009
+        },
+        "depth_metric": {
+            "delta1": 0.605652652726674,
+            "rel": 0.3352650144509764,
+            "rmse": 2.7782180528348106
+        },
+        "depth_scale_invariant": {
+            "delta1": 0.7532173349502342,
+            "rel": 0.029102107459071942
+        },
+        "disparity_affine_invariant": {
+            "delta1": 0.9787580499080841,
+            "rel": 0.03967803255465285
+        },
+        "fov_x": {
+            "deviation": 3.650132885887984,
+            "mae": 4.951248623260247
+        },
+        "inference_time": 0.12289639959713593,
+        "local_points": {
+            "delta1": 0.8924174539318559,
+            "rel": Infinity
+        },
+        "points_affine_invariant": {
+            "delta1": 0.5905798819329696,
+            "rel": 0.3481413060622459
+        },
+        "points_metric": {
+            "delta1": 0.5905798819329696,
+            "rel": 0.3481413060622459,
+            "rmse": 1.7557891968702684
+        },
+        "points_scale_invariant": {
+            "delta1": 0.7687415450260069,
+            "rel": 0.8527360988958133
+        }
+    }
+}

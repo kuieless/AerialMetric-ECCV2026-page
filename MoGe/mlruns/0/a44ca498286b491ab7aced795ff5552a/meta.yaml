@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/a44ca498286b491ab7aced795ff5552a/artifacts
+end_time: 1768834235382
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: a44ca498286b491ab7aced795ff5552a
+run_name: bouncy-hog-906
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1768832476742
+status: 3
+tags: []
+user_id: szq

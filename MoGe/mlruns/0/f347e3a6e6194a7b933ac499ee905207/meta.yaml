@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/f347e3a6e6194a7b933ac499ee905207/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: f347e3a6e6194a7b933ac499ee905207
+run_name: resilient-shrimp-355
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765421796719
+status: 1
+tags: []
+user_id: szq

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/426a8bc4ac794aa98d81391368081f69/artifacts
+end_time: 1768831211483
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 426a8bc4ac794aa98d81391368081f69
+run_name: unique-stag-637
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1768830954113
+status: 3
+tags: []
+user_id: szq

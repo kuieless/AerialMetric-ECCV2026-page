@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/c22c6382f29e438885040ef350e52236/artifacts
+end_time: 1765428481688
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: c22c6382f29e438885040ef350e52236
+run_name: funny-stork-692
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765428447884
+status: 3
+tags: []
+user_id: szq

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/b2fc1e0d310347d48a0f7e1cba98ce3a/artifacts
+end_time: 1765264388072
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: b2fc1e0d310347d48a0f7e1cba98ce3a
+run_name: masked-newt-264
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765264374956
+status: 3
+tags: []
+user_id: szq

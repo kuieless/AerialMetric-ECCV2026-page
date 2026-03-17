@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/535834eb558848c082957436e7d2d23b/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 535834eb558848c082957436e7d2d23b
+run_name: loud-squirrel-996
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1768725922129
+status: 1
+tags: []
+user_id: szq

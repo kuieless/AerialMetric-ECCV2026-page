@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/884f12dabab6436698bacd00d281ab0b/artifacts
+end_time: 1768900321551
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 884f12dabab6436698bacd00d281ab0b
+run_name: intrigued-colt-997
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1768900306668
+status: 3
+tags: []
+user_id: szq

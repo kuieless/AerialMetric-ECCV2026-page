@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/b359f53db27945eaa7b2773f8289e9be/artifacts
+end_time: 1765428845068
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: b359f53db27945eaa7b2773f8289e9be
+run_name: sincere-bee-21
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765428799379
+status: 3
+tags: []
+user_id: szq

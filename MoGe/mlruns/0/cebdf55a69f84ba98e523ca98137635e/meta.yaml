@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/cebdf55a69f84ba98e523ca98137635e/artifacts
+end_time: 1768910539074
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: cebdf55a69f84ba98e523ca98137635e
+run_name: funny-cow-319
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1768909461506
+status: 3
+tags: []
+user_id: szq

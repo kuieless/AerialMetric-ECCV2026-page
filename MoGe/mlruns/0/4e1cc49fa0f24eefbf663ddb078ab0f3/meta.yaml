@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/4e1cc49fa0f24eefbf663ddb078ab0f3/artifacts
+end_time: 1768967656382
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 4e1cc49fa0f24eefbf663ddb078ab0f3
+run_name: worried-skink-180
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1768967540115
+status: 3
+tags: []
+user_id: szq

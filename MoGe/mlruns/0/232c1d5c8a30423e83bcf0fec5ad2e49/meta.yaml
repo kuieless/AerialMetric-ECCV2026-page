@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/232c1d5c8a30423e83bcf0fec5ad2e49/artifacts
+end_time: 1768725672688
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 232c1d5c8a30423e83bcf0fec5ad2e49
+run_name: lyrical-hare-748
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1768725659883
+status: 3
+tags: []
+user_id: szq

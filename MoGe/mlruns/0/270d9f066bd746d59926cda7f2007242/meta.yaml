@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/270d9f066bd746d59926cda7f2007242/artifacts
+end_time: 1765250087816
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 270d9f066bd746d59926cda7f2007242
+run_name: useful-ox-870
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765249933530
+status: 3
+tags: []
+user_id: szq

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/9a6657a3ddd246dd831db58601ce1df2/artifacts
+end_time: 1768536246966
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 9a6657a3ddd246dd831db58601ce1df2
+run_name: capable-moth-915
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1768535993060
+status: 3
+tags: []
+user_id: szq

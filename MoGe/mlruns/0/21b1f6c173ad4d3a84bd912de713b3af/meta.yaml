@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/21b1f6c173ad4d3a84bd912de713b3af/artifacts
+end_time: 1765273448724
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 21b1f6c173ad4d3a84bd912de713b3af
+run_name: aged-roo-38
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765273420757
+status: 3
+tags: []
+user_id: szq

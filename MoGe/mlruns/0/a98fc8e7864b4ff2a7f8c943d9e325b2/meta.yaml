@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/a98fc8e7864b4ff2a7f8c943d9e325b2/artifacts
+end_time: 1768836789886
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: a98fc8e7864b4ff2a7f8c943d9e325b2
+run_name: omniscient-snipe-820
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1768836686213
+status: 3
+tags: []
+user_id: szq

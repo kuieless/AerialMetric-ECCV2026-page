@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/cb6f4ff225d54c6a8041a30b5cd9589c/artifacts
+end_time: 1768839215071
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: cb6f4ff225d54c6a8041a30b5cd9589c
+run_name: bouncy-goat-937
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1768839185773
+status: 3
+tags: []
+user_id: szq

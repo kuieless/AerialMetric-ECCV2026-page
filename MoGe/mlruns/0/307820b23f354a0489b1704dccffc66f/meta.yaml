@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/307820b23f354a0489b1704dccffc66f/artifacts
+end_time: 1768836261955
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 307820b23f354a0489b1704dccffc66f
+run_name: clean-stoat-318
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1768834641680
+status: 3
+tags: []
+user_id: szq

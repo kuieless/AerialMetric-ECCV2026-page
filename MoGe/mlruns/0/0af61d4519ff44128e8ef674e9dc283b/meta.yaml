@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/0af61d4519ff44128e8ef674e9dc283b/artifacts
+end_time: 1768742572981
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 0af61d4519ff44128e8ef674e9dc283b
+run_name: kindly-fish-298
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1768742550325
+status: 3
+tags: []
+user_id: szq

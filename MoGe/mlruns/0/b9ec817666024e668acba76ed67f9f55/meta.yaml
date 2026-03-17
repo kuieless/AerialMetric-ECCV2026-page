@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/b9ec817666024e668acba76ed67f9f55/artifacts
+end_time: 1765273302500
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: b9ec817666024e668acba76ed67f9f55
+run_name: powerful-flea-322
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765273154470
+status: 3
+tags: []
+user_id: szq

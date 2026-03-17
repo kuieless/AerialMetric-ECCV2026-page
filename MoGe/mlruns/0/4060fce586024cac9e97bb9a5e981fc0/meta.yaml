@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/4060fce586024cac9e97bb9a5e981fc0/artifacts
+end_time: 1768537507477
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 4060fce586024cac9e97bb9a5e981fc0
+run_name: zealous-toad-311
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1768537227715
+status: 3
+tags: []
+user_id: szq

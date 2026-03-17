@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/28d3467e3cf349ab9ed19dcce8fc3851/artifacts
+end_time: 1768837866023
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 28d3467e3cf349ab9ed19dcce8fc3851
+run_name: dashing-owl-295
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1768837856290
+status: 3
+tags: []
+user_id: szq

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/45f8abdad7b54a5ba3965bfd70bb38fd/artifacts
+end_time: 1765428359936
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 45f8abdad7b54a5ba3965bfd70bb38fd
+run_name: lyrical-wren-721
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765428327284
+status: 3
+tags: []
+user_id: szq

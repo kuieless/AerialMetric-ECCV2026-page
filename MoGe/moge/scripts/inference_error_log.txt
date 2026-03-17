@@ -1,0 +1,188 @@
+2026-01-19 20:30:19,776 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/00685a6bd49a2c2dbe846159a58812c407ed95bc.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:19,934 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/01be454a2c3698c48d3dfc2ad3a95fc47b1b877e.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:20,091 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/0330792895d73f8f4b1c7548d8822f9112307dc6.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:20,246 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/124786d9f91c9f23616c4f3f5c02a30383f091da.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:20,402 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/146bcb1ffaea921db5d8ff2c661bd521ddb11ba4.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:20,571 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/1aa2deed405a4bf8ad922949e24e3231f91a5da4.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:20,730 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/1cc3bee38fe445119f3de145c4363688361cd1ef.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:20,887 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/2511723dfe80f827c8410a6cd7b49a60bd1ae3b9.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:21,042 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/2733d108ccebb999ea3259d6fdaa0caecb81c1c3.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:21,197 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/29e6b536f3d64ae74f0d624469dd638dd9f1b618.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:21,352 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/31cc62a6ce23340bd646210bcb91a39a6b38b898.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:21,508 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/36201c05d730305bd39cae0de7ddedbb3c149f4f.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:21,708 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/3873c66a60b1aff7fb63544efa1eea9fafd0b8ce.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:21,906 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/38f6399bdcb2b9068eadcb432ed6a7bd0b40176f.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:22,061 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/3b0a1503d274c2828e859eb0e7ea4b3a3579f395.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:22,218 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/3dfdf69739e8559a84b9e5d852e995a9211eb9d3.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:22,373 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/3f654349d3d9096c7826e7233f2c65a3d492771c.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:22,540 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/42504725f540755a786727fde36439e3c037c8dc.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:22,702 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/4758e4bb2daa5d0043d883d73281d35361cb7aa6.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:22,858 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/4e85bed0b4a9155381cf2bd6601a7baa50187d5b.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:23,012 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/4ec337d41e6ff3d056b46732389654021e385fc9.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:23,165 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/528c4673174021a45ccafb12f5f71b6a08563821.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:23,321 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/55a09c955542e5c1f38634356debe86a243f0aec.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:23,474 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/5690cd7f5abd33cd7254f081fbd0a308e22ba1f5.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:23,632 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/5a81d3d90c45e88d31fa985c103096e3bc1fd093.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:23,786 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/5e6205e82bf8d7a2416ffb2c0ce24209d9550ef2.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:23,941 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/5e8291f9879e9f509ca107af4543d194f71399d8.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:24,094 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/5ede5f1e1184db3d2d595ee366fca9130e534eac.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:24,247 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/6373fa8b085bbbd1227743c8f60c0d8b3a34e080.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:24,401 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/69637c58c9b8f50445727adb12ec72a260fc857c.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:24,555 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/7012d280118907123289023e107b17b3df12c6b2.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:24,708 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/72707b7b9b98de2ca1b683f442d403b40861a56b.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:24,862 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/72aae5b0ad3a90b2e7e670bbe3cb2574a4b286e1.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:25,034 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/74e224a21ce4f1f11cb6e5f7430da1a82213aa83.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:25,189 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/74e756685575b0c93b9c0fd1e0c78855e2af43be.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:25,343 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/7b6be25ac5b5e573d857fb03452cc8aeea39a309.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:25,498 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/7e864a8739ec7df7678b8d9d50eccd4d416f2dc8.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:25,653 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/7f7c7217038ebabb1e7ee64d607638a20ed907f9.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:25,820 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/98eb393948df439c0ebddf3c66825253058be96c.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:25,987 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/9e7f1ba5b51bd10339ec2cc1b5367d8d395a4493.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:26,143 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/a8e2ad9d09592825a979e9e7ececf0e81409c6ab.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:26,303 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/abb849fa36cd94f6ce7331b5cf1bc655fe783f50.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:26,466 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/acf86163c682c75b52ebf053d9d9f69fa88abe5d.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:26,620 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/b49e00d071b1839f0f915f586d6edb9c724de04b.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:26,784 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/b658da5e68cd0dd6096e28bd038905bd2219cf69.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:26,937 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/bb291743fd5a3ae5ba16c942abd5173770ffdda6.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:27,092 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/bb8f6b6899e0b69942055f9e4734fd6ee9ce02bd.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:27,271 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/bda8b539aedcc93e7642edfa81cf226e7a8a189b.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:27,425 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/bdb024526c31d2ce23111b7918f7399573439763.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:27,579 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/bebb10cfa790bfc5c1e1cb7d33076ba70db4aeab.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:27,733 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/c0523fb84ac9d9d5dde5d0a978e5ae6cb40bb695.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:27,888 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/c880630f04c5b44e7afc9440a19c969f82e6774a.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:28,042 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/c9b569a52d2c46877ce6ed08bc63ca58a8fb893f.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:28,197 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/d8ffb62b5ec4e3aa25bd0c9dfba2cc6126c7be55.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:28,349 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/dfc1f78eb27929bb19464459d4da32371441a669.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:28,502 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/dfe7484defc4d09932b370b52ae0b83fb2246c60.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:28,658 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/e280ff59bbfae4a75a90d8fec67fe9938b3eb557.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:28,812 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/e8e436e78a8223f2e6ab0293d51a1a95cb305375.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:28,966 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/f7a9c096013b6fa7d3d6c7eca6ff7f50ff300242.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:29,120 - ERROR - Failed /data1/szq/data/Val/Artsci/rgbs/f8e764fb977fff27fe3f76497a3a8fc7b559f28e.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:29,271 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000007.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:29,417 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000010.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:29,560 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000042.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:29,705 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000057.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:29,848 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000067.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:29,992 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000078.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:30,136 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000087.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:30,284 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000097.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:30,435 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000118.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:30,583 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000137.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:30,730 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000154.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:30,876 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000158.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:31,020 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000163.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:31,164 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000177.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:31,309 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000200.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:31,452 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000203.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:31,595 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000229.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:31,740 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000237.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:31,892 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000241.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:32,040 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000249.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:32,186 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000251.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:32,335 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000256.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:32,480 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000258.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:32,623 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000271.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:32,769 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000279.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:32,913 - ERROR - Failed /data1/szq/data/Val/BC1/rgbs/000295.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:33,058 - ERROR - Failed /data1/szq/data/Val/BC2/rgbs/000001.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:33,201 - ERROR - Failed /data1/szq/data/Val/BC2/rgbs/000023.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:33,345 - ERROR - Failed /data1/szq/data/Val/BC2/rgbs/000056.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:33,490 - ERROR - Failed /data1/szq/data/Val/BC2/rgbs/000071.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:33,634 - ERROR - Failed /data1/szq/data/Val/BC2/rgbs/000082.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:33,779 - ERROR - Failed /data1/szq/data/Val/BC2/rgbs/000084.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:33,923 - ERROR - Failed /data1/szq/data/Val/BC2/rgbs/000088.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:34,067 - ERROR - Failed /data1/szq/data/Val/BC2/rgbs/000094.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:34,212 - ERROR - Failed /data1/szq/data/Val/BC2/rgbs/000096.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:34,398 - ERROR - Failed /data1/szq/data/Val/BC2/rgbs/000101.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:34,540 - ERROR - Failed /data1/szq/data/Val/BC2/rgbs/000110.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:34,683 - ERROR - Failed /data1/szq/data/Val/BC2/rgbs/000120.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:34,832 - ERROR - Failed /data1/szq/data/Val/BC2/rgbs/000127.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-19 20:30:34,976 - ERROR - Failed /data1/szq/data/Val/BC2/rgbs/000138.jpg: module 'utils3d' has no attribute 'pt'
+2026-01-20 11:17:11,216 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 13d3e45b-804c-492d-8f26-9ff8f56b72f3)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:11,216 - WARNING - Retrying in 1s [Retry 1/5].
+2026-01-20 11:17:11,240 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: b672570f-03e6-42f0-a1cc-f604429cc7cd)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:11,240 - WARNING - Retrying in 1s [Retry 1/5].
+2026-01-20 11:17:11,282 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 393b99a8-b704-4dda-8098-ec8f5c475652)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:11,283 - WARNING - Retrying in 1s [Retry 1/5].
+2026-01-20 11:17:11,292 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 2a7eff87-1069-42a8-8de0-a7a49023e555)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:11,293 - WARNING - Retrying in 1s [Retry 1/5].
+2026-01-20 11:17:11,426 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 0246075f-1f58-44cc-95c8-426835fc76e3)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:11,426 - WARNING - Retrying in 1s [Retry 1/5].
+2026-01-20 11:17:11,448 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 6264262d-4d2d-45d0-b2f6-a41a2310201c)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:11,448 - WARNING - Retrying in 1s [Retry 1/5].
+2026-01-20 11:17:11,453 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 03bc110c-cbf7-44e9-8742-c437ab7680bd)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:11,453 - WARNING - Retrying in 1s [Retry 1/5].
+2026-01-20 11:17:11,480 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 566b9d2c-911c-4c13-82d2-ccc190bf75cb)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:11,480 - WARNING - Retrying in 1s [Retry 1/5].
+2026-01-20 11:17:12,320 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: a4783558-72ad-46ee-9ef2-e3c38b03aa93)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:12,320 - WARNING - Retrying in 2s [Retry 2/5].
+2026-01-20 11:17:12,339 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 0c9400ac-674d-45cc-a06d-0ab1a3240e38)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:12,339 - WARNING - Retrying in 2s [Retry 2/5].
+2026-01-20 11:17:12,387 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 4ff7124d-1c31-4249-be04-5c8537cc4f78)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:12,387 - WARNING - Retrying in 2s [Retry 2/5].
+2026-01-20 11:17:12,399 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 94c6e25f-9bf0-427c-b75d-4086ce972f68)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:12,399 - WARNING - Retrying in 2s [Retry 2/5].
+2026-01-20 11:17:12,519 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: ea72bdb0-b01f-4287-a544-cc05afe23d18)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:12,519 - WARNING - Retrying in 2s [Retry 2/5].
+2026-01-20 11:17:12,554 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 085d304a-fe91-4a58-a9d7-9b8f490c6e97)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:12,555 - WARNING - Retrying in 2s [Retry 2/5].
+2026-01-20 11:17:12,561 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 0c13b478-eb29-4aea-8f03-ccaff63d05f3)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:12,561 - WARNING - Retrying in 2s [Retry 2/5].
+2026-01-20 11:17:12,582 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: a3fe52c1-8b77-4e84-be33-db365635a20f)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:12,582 - WARNING - Retrying in 2s [Retry 2/5].
+2026-01-20 11:17:14,421 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: ae4940ee-7a16-4be0-abd4-e552d19833d9)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:14,421 - WARNING - Retrying in 4s [Retry 3/5].
+2026-01-20 11:17:14,440 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: d52cbe74-3726-4200-8fc6-58d196fc06b3)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:14,441 - WARNING - Retrying in 4s [Retry 3/5].
+2026-01-20 11:17:14,491 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 4320a931-8265-4233-b12d-bc57531ff80e)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:14,492 - WARNING - Retrying in 4s [Retry 3/5].
+2026-01-20 11:17:14,496 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: b1c97a2b-9407-457b-9ab3-d102f5fe366c)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:14,496 - WARNING - Retrying in 4s [Retry 3/5].
+2026-01-20 11:17:14,625 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 0f405a24-1201-461b-9a53-e2bda3634fa4)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:14,625 - WARNING - Retrying in 4s [Retry 3/5].
+2026-01-20 11:17:14,667 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 8a69f1cb-fa0d-46bf-868c-c3ac52732f9d)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:14,667 - WARNING - Retrying in 4s [Retry 3/5].
+2026-01-20 11:17:14,668 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: fbcc4fd6-45cc-42ae-8b36-03c319e9e514)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:14,668 - WARNING - Retrying in 4s [Retry 3/5].
+2026-01-20 11:17:14,683 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 39c82a74-15cc-4ac5-8f1d-37613f028c32)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:14,683 - WARNING - Retrying in 4s [Retry 3/5].
+2026-01-20 11:17:18,518 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: dda5d5f1-d685-4c62-8c44-f276cd169f5e)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:18,518 - WARNING - Retrying in 8s [Retry 4/5].
+2026-01-20 11:17:18,550 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: e3c27b94-3e9e-4baa-85df-fed6f84758d5)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:18,550 - WARNING - Retrying in 8s [Retry 4/5].
+2026-01-20 11:17:18,601 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: c9a7975e-73c3-4948-a92b-89095285dd6f)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:18,602 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 7953d430-8701-493b-b893-e0a92f16204c)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:18,602 - WARNING - Retrying in 8s [Retry 4/5].
+2026-01-20 11:17:18,602 - WARNING - Retrying in 8s [Retry 4/5].
+2026-01-20 11:17:18,732 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: fd0cc251-678a-4a6e-8110-fa584e58a283)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:18,733 - WARNING - Retrying in 8s [Retry 4/5].
+2026-01-20 11:17:18,779 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 2f03e9ff-b7b3-4a04-8634-396483a7a390)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:18,779 - WARNING - Retrying in 8s [Retry 4/5].
+2026-01-20 11:17:18,781 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 40cb51be-81ed-4ec7-94a2-4a1159811a0d)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:18,781 - WARNING - Retrying in 8s [Retry 4/5].
+2026-01-20 11:17:18,792 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 5ffd5310-5122-4b7e-9c60-d35e8e09edb0)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:18,793 - WARNING - Retrying in 8s [Retry 4/5].
+2026-01-20 11:17:26,645 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: e9ac8cb9-e9d8-4f13-ab64-0faedad03e0f)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:26,645 - WARNING - Retrying in 8s [Retry 5/5].
+2026-01-20 11:17:26,652 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: cdcaebc0-11cd-4c4d-8254-06d1bd0374ee)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:26,652 - WARNING - Retrying in 8s [Retry 5/5].
+2026-01-20 11:17:26,706 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: d1f79c04-a55d-4cd3-bc4c-28358858b09a)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:26,706 - WARNING - Retrying in 8s [Retry 5/5].
+2026-01-20 11:17:26,708 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 9abc0bc3-978c-4f80-a011-5b0820ee102f)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:26,708 - WARNING - Retrying in 8s [Retry 5/5].
+2026-01-20 11:17:26,847 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: f5c239b4-304e-4f51-a4ba-7418bd8fac1e)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:26,847 - WARNING - Retrying in 8s [Retry 5/5].
+2026-01-20 11:17:26,884 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 8a2805d8-4ede-41dd-bd9d-24d7bbde28dd)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:26,884 - WARNING - Retrying in 8s [Retry 5/5].
+2026-01-20 11:17:26,893 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: fa55f9ce-ee85-42aa-9752-a9a27c04fecc)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:26,893 - WARNING - Retrying in 8s [Retry 5/5].
+2026-01-20 11:17:26,898 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 4a8e410e-e478-47e9-a477-334d628b823e)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:26,898 - WARNING - Retrying in 8s [Retry 5/5].
+2026-01-20 11:17:34,755 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: e32a0a59-2798-458d-a1f6-593d31c45c11)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:34,756 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 30e0648e-9a28-4940-8e5d-a3c9189777ea)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:34,812 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 2892be9c-787d-4080-a0b8-ecee359e33ec)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:34,822 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: b88946ad-7ec3-4cd4-97c9-0f4723872a79)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:34,956 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 9d75ed70-516e-49f3-bd94-5c5f6dbca8fe)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:34,987 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: 1bd158aa-b323-4dd6-b49c-1bfc1f490f5d)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:34,992 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: edb5b04f-a641-4a09-837e-9a84e8f871f9)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt
+2026-01-20 11:17:35,006 - WARNING - '(ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer')), '(Request ID: cdaf15b5-8013-42e2-aa28-9272e3b0cd96)')' thrown while requesting HEAD https://huggingface.co/Ruijie/MoGe-ViT-L/resolve/main/model.pt

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/2b2f35eb7876495b80ae22ca6128af52/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 2b2f35eb7876495b80ae22ca6128af52
+run_name: popular-crab-221
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1764483570644
+status: 1
+tags: []
+user_id: szq

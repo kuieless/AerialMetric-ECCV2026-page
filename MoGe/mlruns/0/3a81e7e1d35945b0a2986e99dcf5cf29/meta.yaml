@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/3a81e7e1d35945b0a2986e99dcf5cf29/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 3a81e7e1d35945b0a2986e99dcf5cf29
+run_name: capable-bass-681
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765594487107
+status: 1
+tags: []
+user_id: szq

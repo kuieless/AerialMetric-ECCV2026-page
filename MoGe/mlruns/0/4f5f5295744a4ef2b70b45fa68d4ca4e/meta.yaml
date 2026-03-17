@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/4f5f5295744a4ef2b70b45fa68d4ca4e/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 4f5f5295744a4ef2b70b45fa68d4ca4e
+run_name: resilient-stag-853
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765451918139
+status: 1
+tags: []
+user_id: szq

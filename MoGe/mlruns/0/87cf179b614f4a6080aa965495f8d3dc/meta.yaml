@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/87cf179b614f4a6080aa965495f8d3dc/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 87cf179b614f4a6080aa965495f8d3dc
+run_name: exultant-cub-483
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765256487489
+status: 1
+tags: []
+user_id: szq

@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/93aaadbd108647d4b0fa68b46eaef0b5/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 93aaadbd108647d4b0fa68b46eaef0b5
+run_name: adaptable-hawk-770
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1765386906143
+status: 1
+tags: []
+user_id: szq

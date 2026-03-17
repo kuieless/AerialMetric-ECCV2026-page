@@ -1,0 +1,14 @@
+artifact_uri: file:///home/data1/szq/Megadepth/benchmarkmodel/Moge2/MoGe/mlruns/0/6c33cd34a4ce4aa3b56c9f3e21ef4ea0/artifacts
+end_time: 1768831364493
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 6c33cd34a4ce4aa3b56c9f3e21ef4ea0
+run_name: nosy-sponge-797
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1768831356387
+status: 3
+tags: []
+user_id: szq
