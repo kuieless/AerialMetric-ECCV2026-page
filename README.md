@@ -1,4 +1,4 @@
-# Nerfies
+# AerialMetric
 
 This is the repository that contains source code for the [AerialMetric](https://kuieless.github.io/AerialMetric/).
 
