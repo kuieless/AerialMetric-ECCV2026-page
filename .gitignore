@@ -1,0 +1,11 @@
+# Local papers and side projects
+*.pdf
+UniDepth/
+
+# Legacy local experiment utilities and generated tables
+1
+Acodes/
+DJI-self2-final/
+environment.yml
+final_merged.csv
+fov_stats.csv
