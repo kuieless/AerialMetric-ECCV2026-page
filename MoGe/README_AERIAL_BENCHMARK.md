@@ -39,7 +39,7 @@ The CLI runs the complete benchmark pipeline:
 input images
   -> inference
   -> extract nested depth.npy files
-  -> evaluate Bench / Oblique / Wild
+  -> evaluate Bench / Oblique / Wild for the selected model type
   -> optionally delete intermediate predictions
 ```
 
@@ -50,6 +50,7 @@ Output layout:
   Infer/<Dataset>/<Scene>/<SampleID>/depth.npy
   Extracted/<Dataset>/<Scene>/<SampleID>.npy
   Extracted/<Dataset>/Eval_Report_*.txt
+  Extracted/Wild/fov_analysis_details.csv
   run.log
 ```
 
@@ -84,6 +85,22 @@ Bench CSV metadata:
 
 If the CSV files are stored separately from the GT root, pass `--bench_csv_dir`.
 
+Oblique and Wild GT roots are expected to contain scene-level depth folders:
+
+```text
+Oblique or Wild GT:
+  Scene/depth/SampleID.npy
+  Scene/depths/SampleID.npy
+  Scene/depth/SampleID_depth.npy
+```
+
+Wild FoV evaluation also reads per-scene metadata when available:
+
+```text
+Wild GT:
+  Scene/metadata_full.csv
+```
+
 ## Common Options
 
 | Option | Description |
@@ -108,9 +125,27 @@ Intrinsics modes:
 | `load` | Require `meta.json` intrinsics for every image |
 | `none` | Do not load or pass intrinsics |
 
+## Full Benchmark Suite
+
+Each invocation evaluates one `--model_type`. To run the complete release benchmark, run the CLI once for each of:
+
+```text
+full, head, neck, lora64, lora96, lora128
+```
+
+For each model type, pass all three datasets:
+
+```text
+--bench_input / --bench_gt
+--oblique_input / --oblique_gt
+--wild_input / --wild_gt
+```
+
+The CLI processes all provided datasets in one run.
+
 ## LoRA Evaluation Example
 
-Run LoRA-96 on Bench and Oblique:
+Run LoRA-96 on Bench, Oblique, and Wild:
 
 ```bash
 CUDA_VISIBLE_DEVICES=7 conda run -n moge310 python \
@@ -123,6 +158,8 @@ CUDA_VISIBLE_DEVICES=7 conda run -n moge310 python \
   --bench_csv_dir /path/to/Bench-ori \
   --oblique_input /path/to/Oblique \
   --oblique_gt /path/to/Oblique \
+  --wild_input /path/to/Wild \
+  --wild_gt /path/to/Wild \
   --output_dir /path/to/eval_outputs \
   --gpu 7 \
   --resize 0 \
@@ -148,6 +185,8 @@ CUDA_VISIBLE_DEVICES=7 conda run -n moge310 python \
   --bench_csv_dir /path/to/Bench-ori \
   --oblique_input /path/to/Oblique \
   --oblique_gt /path/to/Oblique \
+  --wild_input /path/to/Wild \
+  --wild_gt /path/to/Wild \
   --output_dir /path/to/eval_outputs \
   --gpu 7 \
   --resize 0 \
@@ -168,8 +207,13 @@ CUDA_VISIBLE_DEVICES=7 conda run -n moge310 python \
   --model_type lora96 \
   --checkpoint_root /path/to/checkpoints \
   --lora_config /path/to/config-lora-all.json \
+  --bench_input /path/to/Bench-ori \
+  --bench_gt /path/to/Bench \
+  --bench_csv_dir /path/to/Bench-ori \
   --oblique_input /path/to/Oblique \
   --oblique_gt /path/to/Oblique \
+  --wild_input /path/to/Wild \
+  --wild_gt /path/to/Wild \
   --output_dir /path/to/eval_outputs \
   --gpu 7 \
   --step_interval 1000 \

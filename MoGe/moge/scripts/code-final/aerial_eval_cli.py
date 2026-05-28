@@ -107,7 +107,11 @@ def validate_args(args):
     if args.mask_mode != "none":
         print("WARNING: mask_mode is reserved but not implemented yet; it will not affect inference/evaluation.")
 
-    for name, ds in active_datasets(args).items():
+    datasets = active_datasets(args)
+    if not datasets:
+        raise SystemExit("At least one dataset input is required: --bench_input, --oblique_input, or --wild_input")
+
+    for name, ds in datasets.items():
         if not ds["gt"]:
             raise SystemExit(f"--{name.lower()}_gt is required when --{name.lower()}_input is set")
 
@@ -221,6 +225,7 @@ def process_checkpoint(args, ckpt_path, script_dir, env):
 
     print(f"\n  [{args.model_type}] {ckpt_name}")
     datasets = active_datasets(args)
+    print(f"    Active datasets: {', '.join(datasets)}")
 
     for ds_name, ds_cfg in datasets.items():
         dataset_output = infer_out / ds_name

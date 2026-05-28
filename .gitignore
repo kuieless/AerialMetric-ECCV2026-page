@@ -1,6 +1,7 @@
 # Local papers and side projects
 *.pdf
 UniDepth/
+md
 
 # Legacy local experiment utilities and generated tables
 1
