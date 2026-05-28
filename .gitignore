@@ -1,6 +1,7 @@
 # Local papers and side projects
 *.pdf
 UniDepth/
+MoGe_ground/
 md
 
 # Legacy local experiment utilities and generated tables
