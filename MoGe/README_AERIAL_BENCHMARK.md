@@ -13,8 +13,8 @@ It supports six model variants:
 | Model type | Description |
 |---|---|
 | `full` | Full-parameter / standard checkpoint |
-| `head` | Head-tuned checkpoint |
-| `neck` | Neck-tuned checkpoint |
+| `head` | Scale-Head-tuned checkpoint |
+| `neck` | Freeze Vit-tuned checkpoint |
 | `lora64` | LoRA checkpoint with rank 64 and alpha 128 |
 | `lora96` | LoRA checkpoint with rank 96 and alpha 192 |
 | `lora128` | LoRA checkpoint with rank 128 and alpha 256 |
