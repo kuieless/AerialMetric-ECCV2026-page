@@ -106,7 +106,7 @@
                 ]
             },
             {
-                "name": "FOV",
+                "name": "FOV", 
                 "path": "/data1/szq/FOV",
                 "label_type": "SFM",
                 "weight": 4.0,

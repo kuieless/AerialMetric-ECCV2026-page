@@ -1,17 +1,23 @@
 import sys
-import argparse 
-sys.path.append("/home/szq/moge2/MoGe/moge/scripts")
+import argparse
+from pathlib import Path
+_script_dir = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(_script_dir))
 from a_infer_lora96_norm import run_inference_pipeline
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="LoRA Inference Pipeline")
-    parser.add_argument("--input", required=True, help="输入根目录 (如 /data1/szq/Val/Oblique-norm)")
-    parser.add_argument("--output", required=True, help="输出根目录 (如 /data1/szq/Result/Oblique-norm)")
-    parser.add_argument("--config", required=True, help="LoRA config.json 路径")
-    parser.add_argument("--weight", required=True, help="LoRA .pt 权重路径")
-    parser.add_argument("--resize", type=int, default=1024, help="Resize大小 (0代表原图)")
-    parser.add_argument("--ratio", type=float, default=1.0, help="采样率 (1.0表示全量)")
-    parser.add_argument("--batch_size", type=int, default=4, help="并行推理数量，根据显存调整")
+    parser.add_argument("--input", required=True, help="Input root directory")
+    parser.add_argument("--output", required=True, help="Output root directory")
+    parser.add_argument("--config", required=True, help="Path to LoRA config JSON")
+    parser.add_argument("--weight", required=True, help="Path to LoRA .pt weight")
+    parser.add_argument("--resize", type=int, default=1024, help="Resize size; 0 means original resolution")
+    parser.add_argument("--ratio", type=float, default=1.0, help="Sampling ratio; 1.0 means full dataset")
+    parser.add_argument("--batch_size", type=int, required=True, help="Inference batch size; adjust based on GPU memory")
+    parser.add_argument("--lora_rank", type=int, choices=[64, 96, 128], required=True,
+                        help="LoRA rank (r); alpha is set to 2 * rank")
+    parser.add_argument("--intrinsics_mode", choices=["auto", "load", "none"], default="auto",
+                        help="auto: use meta.json if present; load: require meta.json; none: do not pass fov_x")
     
     args = parser.parse_args()
 
@@ -19,7 +25,11 @@ if __name__ == "__main__":
     output_root = args.output
     real_resize = args.resize if args.resize > 0 else None
 
-    print(f"🚀 启动 LoRA 实验 (Batch Size: {args.batch_size})")
+    print(
+        f"Starting LoRA inference "
+        f"(Batch Size: {args.batch_size}, Rank: {args.lora_rank}, "
+        f"Alpha: {2 * args.lora_rank}, Intrinsics: {args.intrinsics_mode})"
+    )
     
     run_inference_pipeline(
         input_roots=input_roots,
@@ -28,24 +38,7 @@ if __name__ == "__main__":
         lora_weight=args.weight,
         sampling_ratio=args.ratio,
         resize=real_resize,
-        batch_size=args.batch_size
+        batch_size=args.batch_size,
+        lora_rank=args.lora_rank,
+        intrinsics_mode=args.intrinsics_mode,
     )
-'''
-python /home/szq/moge2/MoGe/moge/scripts/code-final/a-infer_lora96-norm.py \
-  --input /data1/szq/Val/Oblique-norm \
-  --output /data1/szq/Val/Oblique-norm-results \
-  --config /home/szq/moge2/MoGe/configs/Final_train/config-lora-all.json \
-  --weight /data1/szq/workspace/lora-batch96-192-with-UElr2/checkpoints/00001000.pt \
-  --resize 0 \
-  --ratio 1.0 \
-  --batch_size 8
-
-python /home/szq/moge2/MoGe/moge/scripts/code-final/a-infer_lora96-norm.py \
-  --input /data1/szq/Val/Bench-norm \
-  --output /data1/szq/Val/Bench-norm-results \
-  --config /home/szq/moge2/MoGe/configs/Final_train/config-lora-all.json \
-  --weight /data1/szq/workspace/lora-batch96-192-with-UElr2/checkpoints/00001000.pt \
-  --resize 0 \
-  --ratio 1.0 \
-  --batch_size 8
-'''

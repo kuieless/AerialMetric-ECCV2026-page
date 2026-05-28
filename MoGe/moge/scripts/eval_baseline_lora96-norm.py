@@ -29,10 +29,13 @@ from moge.model import import_model_class_by_version
 # 🔥 核心类：LoRA 基线模型与批量推理逻辑 (内置 Ultimate Oracle)
 # ==============================================================================
 class LoRABaseline:
-    def __init__(self, lora_config_path, lora_weight_path, device="cuda", fp16=True):
+    def __init__(self, lora_config_path, lora_weight_path, device="cuda", fp16=True, lora_rank=96):
         self.device = torch.device(device)
         self.fp16 = fp16
+        self.lora_rank = lora_rank
+        self.lora_alpha = 2 * lora_rank
         print(f"\n📦 Loading LoRA Model...")
+        print(f"   LoRA rank={self.lora_rank}, alpha={self.lora_alpha}")
         
         with open(lora_config_path, 'r') as f:
             train_config = json.load(f)
@@ -44,7 +47,7 @@ class LoRABaseline:
         LORA_TARGETS = ["qkv", "proj", "fc1", "fc2"]
         HEADS_TO_SAVE = ["scale_head"]
         peft_config = LoraConfig(
-            r=96, lora_alpha=192, bias="none",
+            r=self.lora_rank, lora_alpha=self.lora_alpha, bias="none",
             target_modules=LORA_TARGETS, modules_to_save=HEADS_TO_SAVE
         )
         self.model = get_peft_model(self.model, peft_config)
@@ -217,12 +220,18 @@ class LoRABaseline:
 @click.option('--dump_pred', is_flag=True, help='Dump prediction results.')
 @click.option('--dump_gt', is_flag=True, help='Dump ground truth.')
 @click.option('--ratio', type=float, default=1.0, help='Sampling ratio (0.0-1.0). Default 1.0 (100%).')
-@click.option('--batch_size', type=int, default=4, help='Batch size for faster evaluation.')
+@click.option('--batch_size', type=int, required=True, help='Batch size for faster evaluation.')
+@click.option('--lora_rank', type=click.Choice(['64', '96', '128']), required=True, help='LoRA rank (r); alpha is set to 2 * rank.')
 @click.pass_context
-def main(ctx: click.Context, lora_config: str, lora_weight: str, config_path: str, oracle_mode: bool, output_path: Union[str, Path], dump_pred: bool, dump_gt: bool, ratio: float, batch_size: int):
+def main(ctx: click.Context, lora_config: str, lora_weight: str, config_path: str, oracle_mode: bool, output_path: Union[str, Path], dump_pred: bool, dump_gt: bool, ratio: float, batch_size: int, lora_rank: str):
     
     # 🌟 直接初始化我们封装好的 LoRABaseline
-    baseline = LoRABaseline(lora_config, lora_weight, device="cuda")
+    baseline = LoRABaseline(
+        lora_config,
+        lora_weight,
+        device="cuda",
+        lora_rank=int(lora_rank),
+    )
 
     with open(config_path, 'r') as f:
         config = json.load(f)

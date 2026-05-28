@@ -4,14 +4,14 @@ import argparse
 import numpy as np
 import pandas as pd
 import torch
-import torch.nn.functional as F  # <--- 🔥 补上了这一行
+import torch.nn.functional as F  # Required for interpolation.
 import math
 from pathlib import Path
 from tqdm import tqdm
 from collections import defaultdict
 from scipy.stats import pearsonr, spearmanr
 
-# ================= 配置 =================
+# Configuration
 MIN_DEPTH = 1e-3
 MAX_DEPTH = 400
 USE_MEDIAN_SCALING = False 
@@ -24,7 +24,7 @@ def calculate_fov_from_focal(fx, width):
 def load_scene_metadata(scene_dir):
     csv_path = scene_dir / "metadata_full.csv"
     if not csv_path.exists():
-        # Debug: 打印找不到 CSV 的路径
+        # Debug: print missing CSV paths.
         # print(f"   [Debug] CSV not found: {csv_path}")
         return None
     
@@ -41,7 +41,7 @@ def load_scene_metadata(scene_dir):
                 }
         return meta_dict
     except Exception as e:
-        print(f"❌ Error loading CSV {csv_path}: {e}")
+        print(f"Error loading CSV {csv_path}: {e}")
         return None
 
 def compute_depth_metrics(gt, pred, mask):
@@ -57,33 +57,33 @@ def run_fov_evaluation(pred_root_base, gt_root_base):
     gt_root_base = Path(gt_root_base)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    print(f"🚀 FoV & Depth Joint Evaluation")
+    print(f"FoV & Depth Joint Evaluation")
     print(f"   Pred Root: {pred_root_base}")
     print(f"   GT Root:   {gt_root_base}")
 
     fov_files = sorted(list(pred_root_base.rglob("fov.json")))
-    print(f"✅ Found {len(fov_files)} fov.json files.")
+    print(f"Found {len(fov_files)} fov.json files.")
 
     scene_cache = {}
     results = []
     
-    # 统计失败原因
+    # Failure reason counters.
     fail_reasons = defaultdict(int)
 
     pbar = tqdm(fov_files)
     for fov_path in pbar:
-        # 路径解析逻辑
+        # Path parsing logic.
         image_dir = fov_path.parent
         image_stem = image_dir.name 
         scene_dir_name = image_dir.parent.name 
         
-        # Debug 1: 检查场景文件夹
+        # Debug 1: check scene folder.
         gt_scene_dir = gt_root_base / scene_dir_name
         if not gt_scene_dir.exists(): 
             fail_reasons[f"Missing Scene Dir: {scene_dir_name}"] += 1
             continue 
 
-        # Debug 2: 加载 Metadata
+        # Debug 2: load metadata.
         if scene_dir_name not in scene_cache:
             scene_cache[scene_dir_name] = load_scene_metadata(gt_scene_dir)
         
@@ -96,7 +96,7 @@ def run_fov_evaluation(pred_root_base, gt_root_base):
             fail_reasons[f"Image not in CSV: {image_stem}"] += 1
             continue 
 
-        # Debug 3: 加载 GT Depth
+        # Debug 3: load GT depth.
         gt_path = gt_scene_dir / "depth" / f"{image_stem}.npy"
         if not gt_path.exists(): 
             gt_path = gt_scene_dir / "depth" / f"{image_stem}_depth.npy"
@@ -104,7 +104,7 @@ def run_fov_evaluation(pred_root_base, gt_root_base):
                 fail_reasons[f"Missing GT NPY"] += 1
                 continue
 
-        # --- B. 加载数据 ---
+        # Step B: load data.
         try:
             with open(fov_path, 'r') as f:
                 pred_fov_data = json.load(f)
@@ -124,11 +124,11 @@ def run_fov_evaluation(pred_root_base, gt_root_base):
             fail_reasons[f"Load Error: {e}"] += 1
             continue
 
-        # --- C. 计算 ---
+        # Step C: compute metrics.
         pred_t = torch.from_numpy(pred_np).to(device).squeeze()
         gt_t = torch.from_numpy(gt_np).to(device).squeeze()
 
-        # 🔥 这里调用 F.interpolate 就不会报错了
+        # F.interpolate is available through torch.nn.functional.
         if pred_t.shape != gt_t.shape:
             pred_t = F.interpolate(pred_t.unsqueeze(0).unsqueeze(0), size=gt_t.shape, mode='bilinear').squeeze()
 
@@ -153,18 +153,18 @@ def run_fov_evaluation(pred_root_base, gt_root_base):
         })
 
     if not results:
-        print("\n❌ No valid samples found. Debug Info:")
-        # 打印 Top 5 失败原因
+        print("\nNo valid samples found. Debug Info:")
+        # Print top failure reasons.
         for reason, count in sorted(fail_reasons.items(), key=lambda x: x[1], reverse=True)[:10]:
             print(f"   - {reason}: {count} times")
-        print("\n💡 提示: 请检查上面的 'Missing Scene Dir' 路径是否与你的真实 GT 路径一致。")
+        print("\nHint: check whether the 'Missing Scene Dir' paths match your GT root.")
         return
 
-    # ... (后续统计代码保持不变) ...
+    # Aggregate statistics below.
     df = pd.DataFrame(results)
     
     print("\n" + "="*100)
-    print(f"📊 FoV Analysis Report (N={len(df)})")
+    print(f"FoV Analysis Report (N={len(df)})")
     print("="*100)
 
     print(f"{'Metric':<20} | {'Mean':<10} | {'Std Dev':<10} | {'Min':<10} | {'Max':<10}")
@@ -194,15 +194,4 @@ if __name__ == "__main__":
     if os.path.exists(args.pred):
         run_fov_evaluation(args.pred, args.gt)
     else:
-        print("❌ Pred path not found")
-
-        '''
-
-python /home/szq/moge2/MoGe/moge/scripts/code-final/c-eval-wild-fov.py \
-    --pred "/data1/szq/inference/Inference_Results_wild-base/Wild/Wild" \
-    --gt "/data1/szq/Wild"
-
-python /home/szq/moge2/MoGe/moge/scripts/code-final/c-eval-wild-fov.py \
-      --pred "/data1/szq/inference/Inference_Results_wild-base/Wild/Wild" \
-      --gt "/data1/szq/Wild/Wild"  <-- 修改这里
-        '''
+        print("Pred path not found")

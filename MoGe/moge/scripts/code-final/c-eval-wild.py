@@ -9,12 +9,12 @@ from pathlib import Path
 from collections import defaultdict
 from scipy.stats import spearmanr
 
-# ================= 配置区域 =================
+# Configuration
 
 EVAL_STAGES = [400, 800] 
 
 MIN_DEPTH = 1e-3
-USE_MEDIAN_SCALING = False  # 绝对尺度评估
+USE_MEDIAN_SCALING = False  # Absolute-scale evaluation.
 
 # ===========================================
 
@@ -44,7 +44,7 @@ def compute_metrics(gt, pred, mask):
     pred_valid = pred[mask]
     
     if len(gt_valid) < 10:
-        return torch.full((7,), float('nan'), device=gt.device) # 更新为7个指标
+        return torch.full((7,), float('nan'), device=gt.device) # Seven metrics.
 
     # 1. AbsRel
     abs_rel = torch.mean(torch.abs(gt_valid - pred_valid) / (gt_valid + 1e-6))
@@ -53,14 +53,14 @@ def compute_metrics(gt, pred, mask):
     mse = ((gt_valid - pred_valid) ** 2).mean()
     rmse = torch.sqrt(mse)
 
-    # 3. Accuracy (容错率阈值)
+    # Accuracy thresholds.
     p_safe = pred_valid.clamp(min=1e-6)
     g_safe = gt_valid.clamp(min=1e-6)
     thresh = torch.maximum((g_safe / p_safe), (p_safe / g_safe))
     
     a1 = (thresh < 1.25).float().mean()      # a1.25
-    a2 = (thresh < 1.25**2).float().mean()   # a1.25的平方 (约 1.5625)
-    a3 = (thresh < 1.25**3).float().mean()   # a1.25的立方 (约 1.953)
+    a2 = (thresh < 1.25**2).float().mean()   # a1.25 squared.
+    a3 = (thresh < 1.25**3).float().mean()   # a1.25 cubed.
 
     # 4. N-RMSE
     g_min, g_max = gt_valid.min(), gt_valid.max()
@@ -78,7 +78,7 @@ def compute_metrics(gt, pred, mask):
 
 def print_table(stats_dict, overall_list, range_cap):
     print("\n" + "="*105)
-    print(f"📊 Evaluation Range: 0 - {range_cap} meters")
+    print(f"Evaluation Range: 0 - {range_cap} meters")
     print("="*105)
     
     headers = ["Scene", "N", "AbsRel(↓)", "RMSE(↓)", "a1(↑)", "a2(↑)", "a3(↑)", "N-RMSE", "SI-Log"]
@@ -109,7 +109,7 @@ def run_wild_metric_evaluation(pred_root, gt_root_base):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     pred_root = Path(pred_root)
     
-    print(f"🚀 Wild Multi-Range Evaluation (Pseudo-GT Enabled)")
+    print(f"Wild Multi-Range Evaluation (Pseudo-GT Enabled)")
     print(f"   Pred: {pred_root}")
     print(f"   GT:   {gt_root_base}")
     print(f"   Ranges: {EVAL_STAGES} meters")
@@ -183,7 +183,7 @@ def run_wild_metric_evaluation(pred_root, gt_root_base):
             f_handle.write(data_fmt.format(s, c, *m) + "\n")
 
     f_handle.close()
-    print(f"\n📝 Full Report saved to: {out_file}")
+    print(f"\nFull Report saved to: {out_file}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -194,4 +194,4 @@ if __name__ == "__main__":
     if os.path.exists(args.pred):
         run_wild_metric_evaluation(args.pred, args.gt)
     else:
-        print("❌ Pred path not found")
+        print("Pred path not found")

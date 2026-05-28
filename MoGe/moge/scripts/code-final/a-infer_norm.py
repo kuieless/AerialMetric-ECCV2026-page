@@ -1,72 +1,67 @@
 import sys
+from pathlib import Path
 
-# 确保能找到 infer_core.py
-sys.path.append("/home/szq/moge2/MoGe/moge/scripts")
+# Ensure we can import from the parent scripts directory
+_script_dir = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(_script_dir))
 
 from infer_core_norm import run_base_inference_pipeline
 
-# ================= ⚙️ 用户配置区域 =================
+# User defaults
 
 EXP_NAME = "Base_Model_V2_Original_Size"
 
-# 输入数据集列表
-INPUT_ROOTS = [
-    "/data1/szq/Wild", 
-]
-
-# 输出根目录
-OUTPUT_ROOT = f"/data1/szq/Inference_Results_{EXP_NAME}"
-
-# 模型路径
-MODEL_PATH = "/home/szq/moge2/MoGe/vitl-normal.pt"
-
-# 推理参数
+# Input dataset defaults.
+INPUT_ROOTS = []
+OUTPUT_ROOT = ""
+MODEL_PATH = ""
 PARAMS = {
-    "version": "v2",         # 模型版本 v1/v2
-    "sampling_ratio": 0.01,  # 100% 全量推理
-    "resize": None,          # None 表示原图尺寸 (自动对齐14)
+    "version": "v2",
+    "sampling_ratio": 1.0,
+    "resize": None,
     "device": "cuda"
 }
 
-# ================= 🚀 执行 =================
+# Entry point
 
 if __name__ == "__main__":
     import argparse
     
     parser = argparse.ArgumentParser(description="Base Model Inference Pipeline")
-    parser.add_argument("--input", default=None, help="输入根目录")
-    parser.add_argument("--output", default=None, help="输出根目录")
-    parser.add_argument("--model", default="/home/szq/moge2/MoGe/vitl-normal.pt", help="模型路径")
+    parser.add_argument("--input", default=None, help="Input root directory")
+    parser.add_argument("--output", default=None, help="Output root directory")
+    parser.add_argument("--model", required=True, help="Path to model checkpoint")
     
-    parser.add_argument("--resize", type=int, default=0, help="Resize大小 (0代表原图)")
-    parser.add_argument("--ratio", type=float, default=0.01, help="采样率")
-    
-    # 🔥 新增 Batch Size 参数
-    parser.add_argument("--batch_size", type=int, default=4, help="并行推理数量，根据显存调整")
+    parser.add_argument("--resize", type=int, default=0, help="Resize size; 0 means original resolution")
+    parser.add_argument("--ratio", type=float, default=1.0, help="Sampling ratio")
+    parser.add_argument("--batch_size", type=int, required=True, help="Inference batch size; adjust based on GPU memory")
+    parser.add_argument("--intrinsics_mode", choices=["auto", "load", "none"], default="auto",
+                        help="auto: use meta.json if present; load: require meta.json; none: do not pass fov_x")
     
     args = parser.parse_args()
 
-    # 实验配置
+    # Runtime configuration.
     input_roots = [args.input] if args.input else INPUT_ROOTS
     output_root = args.output if args.output else OUTPUT_ROOT
     model_path = args.model
     
-    # ================= 🔥 核心修复逻辑 🔥 =================
+    # Resolve resize setting
     real_resize = args.resize
     if real_resize <= 0:
         real_resize = None  
     # ===================================================
 
-    # 参数配置
+    # Parameter configuration.
     params = PARAMS.copy()
     params['sampling_ratio'] = args.ratio
     params['resize'] = real_resize 
-    params['batch_size'] = args.batch_size # 🔥 传给核心
+    params['batch_size'] = args.batch_size # Forward to core pipeline
+    params['intrinsics_mode'] = args.intrinsics_mode
 
-    print(f"🚀 启动 Base Model 实验 (Batch Size: {args.batch_size})")
+    print(f"Starting base model inference (Batch Size: {args.batch_size}, Intrinsics: {args.intrinsics_mode})")
     print(f"   Input:  {input_roots}")
     print(f"   Output: {output_root}")
-    print(f"   Resize: {real_resize} (Shell传入的是 {args.resize})")
+    print(f"   Resize: {real_resize} (CLI value {args.resize})")
     
     run_base_inference_pipeline(
         input_roots=input_roots,

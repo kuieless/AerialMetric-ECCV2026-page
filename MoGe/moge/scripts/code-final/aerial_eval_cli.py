@@ -1,0 +1,323 @@
+"""
+Unified inference/evaluation CLI for AerialMetric/MoGe variants.
+
+Supported model types:
+  - full, head, neck: non-LoRA checkpoints loaded by a-infer_norm.py
+  - lora64, lora96, lora128: LoRA checkpoints loaded by a-infer_lora96-norm.py
+
+The pipeline is:
+  inference -> extraction -> dataset-specific evaluation -> optional cleanup
+"""
+import argparse
+import glob
+import os
+import re
+import shutil
+import subprocess
+import sys
+from datetime import datetime
+from pathlib import Path
+
+
+LORA_RANK_BY_TYPE = {
+    "lora64": 64,
+    "lora96": 96,
+    "lora128": 128,
+}
+
+
+def parse_exact_steps(value):
+    if not value:
+        return []
+    return [int(item.strip()) for item in value.split(",") if item.strip()]
+
+
+def checkpoint_step(path):
+    stem = Path(path).stem
+    if "latest" in stem:
+        return -1
+    if stem.isdigit():
+        return int(stem)
+    match = re.search(r"(?:^|[_-])(\d{4,})(?:$|[_-])", stem)
+    return int(match.group(1)) if match else -2
+
+
+def collect_checkpoints(args):
+    if args.checkpoint:
+        return [args.checkpoint]
+
+    files = glob.glob(os.path.join(args.checkpoint_root, "*.pt"))
+    exact_steps = set(parse_exact_steps(args.exact_steps))
+    selected = []
+
+    for path in files:
+        step = checkpoint_step(path)
+        if step == -2:
+            if not args.exclude_named_checkpoints:
+                selected.append(path)
+            continue
+        if step == -1:
+            if args.include_latest:
+                selected.append(path)
+            continue
+        if step in exact_steps:
+            selected.append(path)
+            continue
+        if not (args.min_step <= step <= args.max_step):
+            continue
+        if args.step_interval <= 0 or step % args.step_interval == 0:
+            selected.append(path)
+
+    selected = sorted(set(selected), key=lambda p: (checkpoint_step(p) < 0, checkpoint_step(p), Path(p).stem))
+    return selected
+
+
+def run_cmd(cmd, log_file, cwd, env):
+    cmd_str = " ".join(str(x) for x in cmd)
+    print(f"    Running: {Path(cmd[1]).name if len(cmd) > 1 else cmd[0]}")
+    with open(log_file, "a", encoding="utf-8") as f:
+        f.write(f"\n[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] {cmd_str}\n")
+        subprocess.run(cmd, check=True, cwd=cwd, env=env, stdout=f, stderr=subprocess.STDOUT)
+
+
+def active_datasets(args):
+    datasets = {}
+    if args.bench_input:
+        datasets["Bench"] = {
+            "input": args.bench_input,
+            "gt": args.bench_gt,
+            "csv_dir": args.bench_csv_dir,
+        }
+    if args.oblique_input:
+        datasets["Oblique"] = {
+            "input": args.oblique_input,
+            "gt": args.oblique_gt,
+        }
+    if args.wild_input:
+        datasets["Wild"] = {
+            "input": args.wild_input,
+            "gt": args.wild_gt,
+        }
+    return datasets
+
+
+def validate_args(args):
+    if args.model_type in LORA_RANK_BY_TYPE and not args.lora_config:
+        raise SystemExit("--lora_config is required for lora64/lora96/lora128")
+    if args.mask_mode != "none":
+        print("WARNING: mask_mode is reserved but not implemented yet; it will not affect inference/evaluation.")
+
+    for name, ds in active_datasets(args).items():
+        if not ds["gt"]:
+            raise SystemExit(f"--{name.lower()}_gt is required when --{name.lower()}_input is set")
+
+
+def inference_command(args, ckpt_path, dataset_input, dataset_output):
+    python = sys.executable
+    if args.model_type in LORA_RANK_BY_TYPE:
+        return [
+            python, "a-infer_lora96-norm.py",
+            "--input", dataset_input,
+            "--output", dataset_output,
+            "--config", args.lora_config,
+            "--weight", ckpt_path,
+            "--ratio", str(args.sampling_ratio),
+            "--resize", str(args.resize),
+            "--batch_size", str(args.batch_size),
+            "--lora_rank", str(LORA_RANK_BY_TYPE[args.model_type]),
+            "--intrinsics_mode", args.intrinsics_mode,
+        ]
+
+    return [
+        python, "a-infer_norm.py",
+        "--input", dataset_input,
+        "--output", dataset_output,
+        "--model", ckpt_path,
+        "--ratio", str(args.sampling_ratio),
+        "--resize", str(args.resize),
+        "--batch_size", str(args.batch_size),
+        "--intrinsics_mode", args.intrinsics_mode,
+    ]
+
+
+def evaluate_dataset(args, ds_name, ds_cfg, extract_out, script_dir, log_file, env):
+    pred_dir = os.path.join(extract_out, ds_name)
+    if not os.path.exists(pred_dir):
+        print(f"    Skip eval: {ds_name} predictions not found")
+        return
+
+    python = sys.executable
+    if ds_name == "Bench":
+        report = os.path.join(pred_dir, "Eval_Report_Bench.txt")
+        if os.path.exists(report):
+            print("    Skip eval: Bench report exists")
+            return
+        cmd = [python, "c-eval-bench.py", "--pred", pred_dir, "--gt", ds_cfg["gt"]]
+        if ds_cfg.get("csv_dir"):
+            cmd.extend(["--csv_dir", ds_cfg["csv_dir"]])
+        run_cmd(cmd, log_file, script_dir, env)
+        return
+
+    if ds_name == "Oblique":
+        report = os.path.join(pred_dir, "Eval_Report_Oblique_Pixel.txt")
+        if os.path.exists(report):
+            print("    Skip eval: Oblique report exists")
+            return
+        run_cmd([python, "c-eval-oblique.py", "--pred", pred_dir, "--gt", ds_cfg["gt"]], log_file, script_dir, env)
+        return
+
+    if ds_name == "Wild":
+        report_multi = os.path.join(pred_dir, "Eval_Report_Wild_MultiRange.txt")
+        if not os.path.exists(report_multi):
+            run_cmd([python, "c-eval-wild.py", "--pred", pred_dir, "--gt", ds_cfg["gt"]], log_file, script_dir, env)
+        report_fov = os.path.join(pred_dir, "fov_analysis_details.csv")
+        if not os.path.exists(report_fov):
+            run_cmd([python, "c-eval-wild-fov.py", "--pred", pred_dir, "--gt", ds_cfg["gt"]], log_file, script_dir, env)
+
+
+def cleanup_intermediate(base_dir):
+    infer_dir = Path(base_dir) / "Infer"
+    extract_dir = Path(base_dir) / "Extracted"
+
+    if infer_dir.exists():
+        shutil.rmtree(infer_dir)
+
+    removed_npy = 0
+    if extract_dir.exists():
+        for path in extract_dir.rglob("*.npy"):
+            path.unlink()
+            removed_npy += 1
+
+    print(f"    Cleanup: removed Infer={infer_dir}, extracted_npy={removed_npy}")
+
+
+def reports_complete(datasets, extract_out):
+    expected = []
+    for ds_name in datasets:
+        pred_dir = Path(extract_out) / ds_name
+        if ds_name == "Bench":
+            expected.append(pred_dir / "Eval_Report_Bench.txt")
+        elif ds_name == "Oblique":
+            expected.append(pred_dir / "Eval_Report_Oblique_Pixel.txt")
+        elif ds_name == "Wild":
+            expected.append(pred_dir / "Eval_Report_Wild_MultiRange.txt")
+            expected.append(pred_dir / "fov_analysis_details.csv")
+    missing = [str(path) for path in expected if not path.exists()]
+    if missing:
+        print("    Cleanup skipped: missing report(s)")
+        for path in missing:
+            print(f"      - {path}")
+        return False
+    return True
+
+
+def process_checkpoint(args, ckpt_path, script_dir, env):
+    ckpt_name = Path(ckpt_path).stem
+    model_dir = Path(args.output_dir) / args.model_type / ckpt_name
+    infer_out = model_dir / "Infer"
+    extract_out = model_dir / "Extracted"
+    log_file = model_dir / "run.log"
+    model_dir.mkdir(parents=True, exist_ok=True)
+
+    print(f"\n  [{args.model_type}] {ckpt_name}")
+    datasets = active_datasets(args)
+
+    for ds_name, ds_cfg in datasets.items():
+        dataset_output = infer_out / ds_name
+        has_depth = dataset_output.exists() and any(dataset_output.rglob("depth.npy"))
+        if has_depth and not args.force:
+            print(f"    Skip inference: {ds_name} exists")
+            continue
+        if has_depth and args.force:
+            shutil.rmtree(dataset_output)
+
+        run_cmd(
+            inference_command(args, ckpt_path, ds_cfg["input"], str(dataset_output)),
+            str(log_file),
+            script_dir,
+            env,
+        )
+
+    if extract_out.exists() and any(extract_out.rglob("*.npy")) and not args.force:
+        print("    Skip extraction: extracted npy exists")
+    else:
+        if extract_out.exists() and args.force:
+            shutil.rmtree(extract_out)
+        run_cmd(
+            [sys.executable, "b-extra.py", "--input", str(infer_out), "--output", str(extract_out), "--target", "depth.npy", "--ext", ".npy"],
+            str(log_file),
+            script_dir,
+            env,
+        )
+
+    for ds_name, ds_cfg in datasets.items():
+        evaluate_dataset(args, ds_name, ds_cfg, str(extract_out), script_dir, str(log_file), env)
+
+    if args.cleanup_intermediate and reports_complete(datasets, extract_out):
+        cleanup_intermediate(model_dir)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Unified AerialMetric inference/evaluation CLI")
+    parser.add_argument("--model_type", required=True,
+                        choices=["full", "head", "neck", "lora64", "lora96", "lora128"],
+                        help="Evaluation variant. LoRA rank/alpha are inferred from lora64/lora96/lora128.")
+
+    ckpt_group = parser.add_mutually_exclusive_group(required=True)
+    ckpt_group.add_argument("--checkpoint", default="", help="Single checkpoint path")
+    ckpt_group.add_argument("--checkpoint_root", default="", help="Directory containing .pt checkpoints")
+
+    parser.add_argument("--lora_config", default="", help="LoRA training config JSON; required for LoRA variants")
+    parser.add_argument("--output_dir", required=True, help="Root output directory")
+    parser.add_argument("--gpu", default="0", help="CUDA_VISIBLE_DEVICES value")
+
+    parser.add_argument("--bench_input", default="", help="Bench input root, e.g. /data1/szq/Val/Bench-ori")
+    parser.add_argument("--bench_gt", default="", help="Bench GT root, e.g. /data1/szq/Val/Bench")
+    parser.add_argument("--bench_csv_dir", default="", help="Bench CSV metadata root, e.g. Bench-ori")
+    parser.add_argument("--oblique_input", default="", help="Oblique input root")
+    parser.add_argument("--oblique_gt", default="", help="Oblique GT root")
+    parser.add_argument("--wild_input", default="", help="Wild input root")
+    parser.add_argument("--wild_gt", default="", help="Wild GT root")
+
+    parser.add_argument("--batch_size", type=int, default=8, help="Inference batch size; use 8 to reproduce old LoRA runs")
+    parser.add_argument("--intrinsics_mode", choices=["auto", "load", "none"], default="auto",
+                        help="auto: use meta.json if present; load: require meta.json; none: do not pass fov_x")
+    parser.add_argument("--mask_mode", choices=["none", "load"], default="none",
+                        help="Reserved. Mask loading is not implemented yet.")
+    parser.add_argument("--resize", type=int, default=0, help="Resize long edge; 0 means original size")
+    parser.add_argument("--sampling_ratio", type=float, default=1.0, help="Data sampling ratio")
+
+    parser.add_argument("--step_interval", type=int, default=1000, help="Evaluate every N steps when using checkpoint_root")
+    parser.add_argument("--exact_steps", default="", help="Comma-separated extra checkpoint steps")
+    parser.add_argument("--min_step", type=int, default=0, help="Minimum checkpoint step")
+    parser.add_argument("--max_step", type=int, default=999999999, help="Maximum checkpoint step")
+    parser.add_argument("--include_latest", action="store_true", help="Include latest*.pt checkpoints")
+    parser.add_argument("--exclude_named_checkpoints", action="store_true",
+                        help="Ignore checkpoints without a numeric step, e.g. Moge2-Aerial.pt")
+
+    parser.add_argument("--force", action="store_true", help="Overwrite existing inference/extraction outputs")
+    parser.add_argument("--cleanup_intermediate", action="store_true",
+                        help="After successful eval, delete Infer and extracted .npy files, keeping reports/logs")
+    args = parser.parse_args()
+
+    validate_args(args)
+    checkpoints = collect_checkpoints(args)
+    print(f"Found {len(checkpoints)} checkpoint(s): {[Path(p).stem for p in checkpoints]}")
+    if not checkpoints:
+        return
+
+    env = os.environ.copy()
+    env["CUDA_VISIBLE_DEVICES"] = args.gpu
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+
+    for i, ckpt_path in enumerate(checkpoints, 1):
+        print(f"\n{'=' * 80}")
+        print(f"[{i}/{len(checkpoints)}] {Path(ckpt_path).name}")
+        print(f"{'=' * 80}")
+        process_checkpoint(args, ckpt_path, script_dir, env)
+
+    print("\nDone.")
+
+
+if __name__ == "__main__":
+    main()

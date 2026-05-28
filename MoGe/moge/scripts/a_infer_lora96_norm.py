@@ -2,7 +2,7 @@
 import os
 import sys
 import json
-import math  # 🔥 新增：用于计算 fov_x 的数学库
+import math  # Used to compute fov_x.
 import torch
 import cv2
 import numpy as np
@@ -10,7 +10,7 @@ from pathlib import Path
 from tqdm import tqdm
 from peft import LoraConfig, get_peft_model
 
-# ================= 动态环境配置 =================
+# Dynamic path setup
 def setup_moge_path():
     current_path = Path(__file__).resolve()
     for parent in [current_path.parents[0], current_path.parents[1], current_path.parents[2]]:
@@ -18,7 +18,7 @@ def setup_moge_path():
             if str(parent) not in sys.path:
                 sys.path.insert(0, str(parent))
             return
-    print("⚠️ Warning: 未能自动定位 moge 包路径，请确保环境变量已设置。")
+    print("Warning: could not locate the moge package path automatically; ensure PYTHONPATH is set.")
 
 setup_moge_path()
 
@@ -26,18 +26,26 @@ try:
     from moge.model import import_model_class_by_version
     import utils3d
 except ImportError:
-    sys.path.insert(0, "/home/szq/moge2/MoGe") 
+    _repo_root = Path(__file__).resolve().parents[2]
+    sys.path.insert(0, str(_repo_root))
     from moge.model import import_model_class_by_version
     import utils3d
 
-# ================= 核心类 =================
+# Core engine
 
 class MogeLoRAEngine:
-    def __init__(self, config_path, lora_path, device="cuda", fp16=True):
+    def __init__(self, config_path, lora_path, device="cuda", fp16=True, lora_rank=96, intrinsics_mode="auto"):
         self.device = torch.device(device)
         self.fp16 = fp16
+        self.lora_rank = lora_rank
+        self.lora_alpha = 2 * lora_rank
+        if intrinsics_mode not in {"auto", "load", "none"}:
+            raise ValueError("intrinsics_mode must be one of: auto, load, none")
+        self.intrinsics_mode = intrinsics_mode
         
-        print(f"\n📦 [LoRA Engine] 初始化...")
+        print(f"\n[LoRA Engine] initializing...")
+        print(f"   LoRA rank={self.lora_rank}, alpha={self.lora_alpha}")
+        print(f"   Intrinsics mode={self.intrinsics_mode}")
         with open(config_path, 'r') as f:
             train_config = json.load(f)
         
@@ -49,7 +57,7 @@ class MogeLoRAEngine:
         LORA_TARGETS = ["qkv", "proj", "fc1", "fc2"]
         HEADS_TO_SAVE = ["scale_head"] 
         peft_config = LoraConfig(
-            r=96, lora_alpha=192, bias="none",
+            r=self.lora_rank, lora_alpha=self.lora_alpha, bias="none",
             target_modules=LORA_TARGETS, modules_to_save=HEADS_TO_SAVE 
         )
         self.model = get_peft_model(self.model, peft_config)
@@ -85,6 +93,11 @@ class MogeLoRAEngine:
         self.model.eval()
         if self.fp16: self.model.half()
 
+    @staticmethod
+    def _sample_id_from_path(img_path):
+        image_dir_names = {"image", "images", "rgb", "rgbs", "color", "jpg"}
+        return img_path.stem if img_path.parent.name.lower() in image_dir_names else img_path.parent.name
+
     def run_scene(self, scene_name, image_paths, output_path, stride=1, resize=1024, batch_size=4):
         output_path = Path(output_path)
         if not image_paths: return 0
@@ -98,14 +111,14 @@ class MogeLoRAEngine:
                     count = self._process_batch(batch_paths, output_path, resize)
                     success_count += count
                 except Exception as e:
-                    print(f"\n❌ Error processing batch near {batch_paths[0].parent.name}: {e}")
+                    print(f"\nError processing batch near {batch_paths[0].parent.name}: {e}")
         return success_count
 
     def _process_batch(self, batch_paths, root_out, resize_to):
         images_info = []
         max_h, max_w = 0, 0
         
-########        # 1. 读取图片与内参  ####  
+########        # Read images and optional intrinsics.  ####  
         for img_path in batch_paths:
             img_bgr = cv2.imread(str(img_path))
             if img_bgr is None: continue
@@ -131,31 +144,35 @@ class MogeLoRAEngine:
             max_h = max(max_h, new_h)
             max_w = max(max_w, new_w)
             
-            # 🔥 修改点：读取 meta.json 并换算为 fov_x
-            meta_path = img_path.parent / "meta.json"
             fov_x_deg = None 
             
-            if meta_path.exists():
-                with open(meta_path, 'r') as f:
-                    meta = json.load(f)
-                    if "intrinsics" in meta:
+            if self.intrinsics_mode != "none":
+                meta_path = img_path.parent / "meta.json"
+                if not meta_path.exists():
+                    if self.intrinsics_mode == "load":
+                        raise FileNotFoundError(f"Missing required intrinsics file: {meta_path}")
+                else:
+                    with open(meta_path, 'r') as f:
+                        meta = json.load(f)
+                    if "intrinsics" not in meta:
+                        if self.intrinsics_mode == "load":
+                            raise KeyError(f"Missing 'intrinsics' in required file: {meta_path}")
+                    else:
                         intr_norm = meta["intrinsics"]
-                        # 提取归一化的 fx (矩阵第0行第0列)
                         fx_norm = intr_norm[0][0]
-                        # 物理公式: fov_x = 2 * arctan(0.5 / fx_norm)
                         fov_x_rad = 2 * math.atan(0.5 / fx_norm)
                         fov_x_deg = math.degrees(fov_x_rad)
-            
+	            
             images_info.append({
                 "path": img_path, "orig_shape": (h_orig, w_orig),
                 "new_shape": (new_h, new_w), "tensor": tensor,
-                "fov_x": fov_x_deg  # 保存角度制的 fov_x
+                "fov_x": fov_x_deg  # Store fov_x in degrees.
             })
             
         if not images_info: return 0
         actual_batch_size = len(images_info)
         
-        # 2. 补齐 (Padding)
+        # Pad to the largest image size in the batch.
         batched_tensor = torch.zeros((actual_batch_size, 3, max_h, max_w), device=self.device)
         batched_fov_x = torch.zeros((actual_batch_size,), device=self.device, dtype=torch.float32)
         has_fov = False
@@ -165,12 +182,12 @@ class MogeLoRAEngine:
         for i, info in enumerate(images_info):
             h, w = info["new_shape"]
             batched_tensor[i, :, :h, :w] = info["tensor"].to(self.device)
-            # 记录 fov_x
+            # Record fov_x.
             if info["fov_x"] is not None:
                 batched_fov_x[i] = info["fov_x"]
                 has_fov = True
             
-        # 🔥 修改点：批量推理 (根据是否读取到内参，决定是否传入 fov_x)
+        # Pass fov_x only when intrinsics are available.
         infer_kwargs = {}
         if has_fov:
             infer_kwargs['fov_x'] = batched_fov_x
@@ -180,7 +197,7 @@ class MogeLoRAEngine:
         elif hasattr(self.model.base_model.model, 'infer'): 
             output = self.model.base_model.model.infer(batched_tensor, **infer_kwargs)
         else: 
-            raise AttributeError("无法找到 infer 方法")
+            raise AttributeError("Could not find an infer method")
             
         depths = output['depth'].cpu().numpy()
         if depths.ndim == 4: depths = depths.squeeze(1)
@@ -188,7 +205,7 @@ class MogeLoRAEngine:
         out_intrinsics = output.get('intrinsics', None)
         if out_intrinsics is not None: out_intrinsics = out_intrinsics.cpu().numpy()
 
-        # 4. 后处理：保存结果
+        # Save results.
         for i, info in enumerate(images_info):
             h_orig, w_orig = info["orig_shape"]
             h_new, w_new = info["new_shape"]
@@ -197,8 +214,7 @@ class MogeLoRAEngine:
             if depth.shape != (h_orig, w_orig):
                 depth = cv2.resize(depth, (w_orig, h_orig), interpolation=cv2.INTER_LINEAR)
                 
-            # 保存目录：使用 SampleID (即 img_path 的父文件夹名)
-            sample_id = info["path"].parent.name
+            sample_id = self._sample_id_from_path(info["path"])
             save_dir = root_out / sample_id
             save_dir.mkdir(parents=True, exist_ok=True)
             
@@ -215,44 +231,67 @@ class MogeLoRAEngine:
 class DatasetAutoParser:
     def __init__(self):
         self.scenes = {}
+        self.image_dir_names = ("image", "images", "rgb", "rgbs", "color", "jpg")
+
+    def _collect_scene_images(self, scene_dir):
+        image_paths = []
+
+        # Bench/Oblique-norm: Scene/SampleID/image.jpg.
+        image_paths.extend(scene_dir.rglob("image.jpg"))
+        image_paths.extend(scene_dir.rglob("image.png"))
+
+        # Oblique/Wild/raw exports: Scene/rgbs/*.jpg or Scene/image/*.jpg.
+        for image_dir_name in self.image_dir_names:
+            image_dir = scene_dir / image_dir_name
+            if image_dir.is_dir():
+                for pattern in ("*.jpg", "*.jpeg", "*.png", "*.JPG", "*.JPEG", "*.PNG"):
+                    image_paths.extend(image_dir.glob(pattern))
+
+        return sorted(set(image_paths))
 
     def scan(self, root_path):
         root_path = Path(root_path)
         if not root_path.exists(): return
-        print(f"🕵️  Scanning Dataset: {root_path} ...")
+        print(f"Scanning Dataset: {root_path} ...")
         
-        # 遍历场景文件夹 (如 ainterval5_AMtown01_cropped_downsampled)
+        # Iterate over scene folders.
         for scene_dir in root_path.iterdir():
             if not scene_dir.is_dir(): continue
             
-            # 找到所有的 image.jpg (结构: Scene/SampleID/image.jpg)
-            image_paths = sorted(list(scene_dir.rglob("image.jpg")) + list(scene_dir.rglob("image.png")))
+            image_paths = self._collect_scene_images(scene_dir)
             if image_paths:
                 self.scenes[scene_dir.name] = {
                     'source_root': root_path,
                     'image_paths': image_paths
                 }
 
-# ================= 封装的调用接口 =================
+# Public pipeline API
 
 def run_inference_pipeline(
     input_roots, output_root, lora_config, lora_weight, 
-    sampling_ratio=1.0, resize=1024, device="cuda", batch_size=4 
+    sampling_ratio=1.0, resize=1024, device="cuda", batch_size=4,
+    lora_rank=96, intrinsics_mode="auto",
 ):
     parser = DatasetAutoParser()
     if isinstance(input_roots, str): input_roots = [input_roots]
     for root in input_roots: parser.scan(root)
     
     tasks = parser.scenes
-    print(f"✅ 共发现 {len(tasks)} 个场景待处理。")
+    print(f"Found {len(tasks)} scenes to process.")
     if not tasks: return
 
-    engine = MogeLoRAEngine(lora_config, lora_weight, device=device)
+    engine = MogeLoRAEngine(
+        lora_config,
+        lora_weight,
+        device=device,
+        lora_rank=lora_rank,
+        intrinsics_mode=intrinsics_mode,
+    )
     stride = int(1 / sampling_ratio) if sampling_ratio < 1.0 else 1
     
     for i, (scene_name, task) in enumerate(tasks.items()):
         output_dir = Path(output_root) / scene_name
-        print(f"\n▶️ [{i+1}/{len(tasks)}] 场景: {scene_name} (图片数: {len(task['image_paths'])})")
+        print(f"\n[{i+1}/{len(tasks)}] Scene: {scene_name} (images: {len(task['image_paths'])})")
         
         count = engine.run_scene(
             scene_name=scene_name,
@@ -262,4 +301,4 @@ def run_inference_pipeline(
             resize=resize,
             batch_size=batch_size
         )
-        print(f"   ✅ 完成 {count} 张")
+        print(f"   Completed {count} images")

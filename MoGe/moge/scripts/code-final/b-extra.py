@@ -8,12 +8,9 @@ from tqdm import tqdm
 
 # ================= 默认配置区域 (也可以通过命令行覆盖) =================
 
-# 1. 你的推理结果所在的根目录 (脚本会递归搜索这里面所有的 depth.npy)
-#    注意：这里填你刚刚 infer 脚本输出的那个 OUTPUT_ROOT_BASE
-DEFAULT_INPUT_ROOT = "/data1/szq/Inference_Results_Base_Model_V2_Original_Size/Val" 
-
-# 2. 你想把结果提取到哪里
-DEFAULT_OUTPUT_ROOT = "/data1/szq/Inference_Results_Base_Model_V2_Original_Size/Val_Extracted"
+# Default input/output roots (override via --input and --output arguments)
+DEFAULT_INPUT_ROOT = ""
+DEFAULT_OUTPUT_ROOT = ""
 
 # 3. 你要提取的文件名 (默认是深度图)
 TARGET_FILENAME = "depth.npy" 

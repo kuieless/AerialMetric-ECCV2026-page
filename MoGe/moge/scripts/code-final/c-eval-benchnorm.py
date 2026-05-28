@@ -42,7 +42,7 @@ def find_gt_path(pred_path, gt_root_base):
     scene_name = pred_path.parent.name  # 例如: Cleaned_Dataset_Campus
     file_stem = pred_path.stem         # 文件名（不含后缀）
 
-    # 这里的 gt_root_base 应该是 /data1/szq/Val/Bench
+    # gt_root_base should point to the Bench GT dataset root
     gt_scene_dir = Path(gt_root_base) / scene_name
     
     # 根据你提供的结构，GT 都在 depth 文件夹下
@@ -268,9 +268,8 @@ def run_evaluation(pred_root, gt_root_base):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     # 默认值改为你现在的 Extracted 目录
-    parser.add_argument("--pred", default="/data1/szq/Infer-Final/Table2-1/Table2-head-LoRA-96-groundless4-UElr2-norm3/00001000/Extracted", help="预测结果 Extracted 目录")
-    # 默认值改为你的 Bench GT 根目录
-    parser.add_argument("--gt", default="/data1/szq/Val/Bench-ori", help="GT 根目录 (包含各个 Cleaned_Dataset)")
+    parser.add_argument("--pred", required=True, help="Path to extracted predictions directory")
+    parser.add_argument("--gt", required=True, help="Path to Bench GT dataset root")
     args = parser.parse_args()
     
     if not os.path.exists(args.pred):
