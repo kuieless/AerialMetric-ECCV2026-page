@@ -1,12 +1,12 @@
 """
 Batch evaluation script for LoRA aerial depth estimation.
-Runs inference → extraction → evaluation across Bench, Oblique, and Wild datasets.
+Runs inference -> extraction -> evaluation across Decoupled, Oblique, and Wild datasets.
 
 Usage:
     python batch_eval.py \
         --checkpoint_root /path/to/checkpoints \
         --lora_config configs/Final_train/config-lora-all.json \
-        --bench_path /path/to/Bench \
+        --decoupled_path /path/to/decoupled \
         --oblique_path /path/to/Oblique \
         --wild_path /path/to/Wild \
         --output_dir /path/to/results \
@@ -83,7 +83,7 @@ def run_cmd(cmd, log_file, cwd=None, env=None):
 
 
 def process_checkpoint(ckpt_path, args, env):
-    """Run full pipeline for a single checkpoint on Bench, Oblique, Wild."""
+    """Run full pipeline for a single checkpoint on Decoupled, Oblique, Wild."""
     ckpt_name = Path(ckpt_path).stem
     print(f"\n  [Processing] {ckpt_name}")
 
@@ -95,8 +95,8 @@ def process_checkpoint(ckpt_path, args, env):
 
     # Determine which datasets to process
     active = {}
-    if args.bench_path:
-        active["Bench"] = args.bench_path
+    if args.decoupled_path:
+        active["Decoupled"] = args.decoupled_path
     if args.oblique_path:
         active["Oblique"] = args.oblique_path
     if args.wild_path:
@@ -175,15 +175,15 @@ def process_checkpoint(ckpt_path, args, env):
             print(f"    ERROR extraction: {e}")
 
     # --- Step 3: Evaluation ---
-    if args.bench_path:
-        bench_pred = os.path.join(extract_out, "Bench")
-        report = os.path.join(bench_pred, "Eval_Report_Bench.txt")
-        if not os.path.exists(report) and os.path.exists(bench_pred):
+    if args.decoupled_path:
+        decoupled_pred = os.path.join(extract_out, "Decoupled")
+        report = os.path.join(decoupled_pred, "Eval_Report_Decoupled.txt")
+        if not os.path.exists(report) and os.path.exists(decoupled_pred):
             try:
-                run_cmd(["python", "c-eval-bench.py", "--pred", bench_pred, "--gt", args.bench_path],
+                run_cmd(["python", "c-eval-bench.py", "--pred", decoupled_pred, "--gt", args.decoupled_path],
                         log_file=run_log, cwd=script_dir, env=env)
             except Exception as e:
-                print(f"    ERROR bench eval: {e}")
+                print(f"    ERROR decoupled eval: {e}")
 
     if args.oblique_path:
         oblique_pred = os.path.join(extract_out, "Oblique")
@@ -219,7 +219,7 @@ def main():
     parser = argparse.ArgumentParser(description="LoRA Aerial Batch Evaluation")
     parser.add_argument("--checkpoint_root", required=True, help="Directory containing .pt checkpoints")
     parser.add_argument("--lora_config", required=True, help="Path to LoRA config JSON")
-    parser.add_argument("--bench_path", default="", help="Path to Bench dataset")
+    parser.add_argument("--decoupled_path", default="", help="Path to Decoupled dataset")
     parser.add_argument("--oblique_path", default="", help="Path to Oblique dataset")
     parser.add_argument("--wild_path", default="", help="Path to Wild dataset")
     parser.add_argument("--wild_exclude", nargs="*", default=[], help="Wild scene names to exclude")

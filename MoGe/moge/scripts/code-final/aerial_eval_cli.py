@@ -5,6 +5,9 @@ Supported model types:
   - full, head, neck: non-LoRA checkpoints loaded by a-infer_norm.py
   - lora64, lora96, lora128: LoRA checkpoints loaded by a-infer_lora96-norm.py
 
+When --intrinsics_mode=load is used, the input roots must point to the
+norm-style dataset layout that includes per-sample meta.json files.
+
 The pipeline is:
   inference -> extraction -> dataset-specific evaluation -> optional cleanup
 """
@@ -82,11 +85,11 @@ def run_cmd(cmd, log_file, cwd, env):
 
 def active_datasets(args):
     datasets = {}
-    if args.bench_input:
-        datasets["Bench"] = {
-            "input": args.bench_input,
-            "gt": args.bench_gt,
-            "csv_dir": args.bench_csv_dir,
+    if args.decoupled_input:
+        datasets["Decoupled"] = {
+            "input": args.decoupled_input,
+            "gt": args.decoupled_gt,
+            "csv_dir": args.decoupled_csv_dir,
         }
     if args.oblique_input:
         datasets["Oblique"] = {
@@ -101,6 +104,22 @@ def active_datasets(args):
     return datasets
 
 
+def root_has_meta_json(root):
+    if not root:
+        return False
+    try:
+        next(Path(root).rglob("meta.json"))
+        return True
+    except StopIteration:
+        return False
+
+
+def dataset_intrinsics_mode(args, ds_name):
+    if ds_name == "Wild" and args.intrinsics_mode == "load":
+        return "auto"
+    return args.intrinsics_mode
+
+
 def validate_args(args):
     if args.model_type in LORA_RANK_BY_TYPE and not args.lora_config:
         raise SystemExit("--lora_config is required for lora64/lora96/lora128")
@@ -109,15 +128,21 @@ def validate_args(args):
 
     datasets = active_datasets(args)
     if not datasets:
-        raise SystemExit("At least one dataset input is required: --bench_input, --oblique_input, or --wild_input")
+        raise SystemExit("At least one dataset input is required: --decoupled_input, --oblique_input, or --wild_input")
 
     for name, ds in datasets.items():
         if not ds["gt"]:
             raise SystemExit(f"--{name.lower()}_gt is required when --{name.lower()}_input is set")
+        if name in {"Decoupled", "Oblique"} and args.intrinsics_mode == "load" and not root_has_meta_json(ds["input"]):
+            raise SystemExit(
+                f"{name} input root has no meta.json files. "
+                f"Switch to the norm-style {name.lower()} dataset layout before using --intrinsics_mode load."
+            )
 
 
-def inference_command(args, ckpt_path, dataset_input, dataset_output):
+def inference_command(args, ds_name, ckpt_path, dataset_input, dataset_output):
     python = sys.executable
+    intrinsics_mode = dataset_intrinsics_mode(args, ds_name)
     if args.model_type in LORA_RANK_BY_TYPE:
         return [
             python, "a-infer_lora96-norm.py",
@@ -129,7 +154,7 @@ def inference_command(args, ckpt_path, dataset_input, dataset_output):
             "--resize", str(args.resize),
             "--batch_size", str(args.batch_size),
             "--lora_rank", str(LORA_RANK_BY_TYPE[args.model_type]),
-            "--intrinsics_mode", args.intrinsics_mode,
+            "--intrinsics_mode", intrinsics_mode,
         ]
 
     return [
@@ -140,7 +165,7 @@ def inference_command(args, ckpt_path, dataset_input, dataset_output):
         "--ratio", str(args.sampling_ratio),
         "--resize", str(args.resize),
         "--batch_size", str(args.batch_size),
-        "--intrinsics_mode", args.intrinsics_mode,
+        "--intrinsics_mode", intrinsics_mode,
     ]
 
 
@@ -151,10 +176,10 @@ def evaluate_dataset(args, ds_name, ds_cfg, infer_out, extract_out, script_dir, 
         return
 
     python = sys.executable
-    if ds_name == "Bench":
-        report = os.path.join(pred_dir, "Eval_Report_Bench.txt")
+    if ds_name == "Decoupled":
+        report = os.path.join(pred_dir, "Eval_Report_Decoupled.txt")
         if os.path.exists(report):
-            print("    Skip eval: Bench report exists")
+            print("    Skip eval: Decoupled report exists")
             return
         cmd = [python, "c-eval-bench.py", "--pred", pred_dir, "--gt", ds_cfg["gt"]]
         if ds_cfg.get("csv_dir"):
@@ -209,8 +234,8 @@ def reports_complete(args, datasets, extract_out):
     expected = []
     for ds_name in datasets:
         pred_dir = Path(extract_out) / ds_name
-        if ds_name == "Bench":
-            expected.append(pred_dir / "Eval_Report_Bench.txt")
+        if ds_name == "Decoupled":
+            expected.append(pred_dir / "Eval_Report_Decoupled.txt")
         elif ds_name == "Oblique":
             expected.append(pred_dir / "Eval_Report_Oblique_Pixel.txt")
         elif ds_name == "Wild":
@@ -248,7 +273,7 @@ def process_checkpoint(args, ckpt_path, script_dir, env):
             shutil.rmtree(dataset_output)
 
         run_cmd(
-            inference_command(args, ckpt_path, ds_cfg["input"], str(dataset_output)),
+            inference_command(args, ds_name, ckpt_path, ds_cfg["input"], str(dataset_output)),
             str(log_file),
             script_dir,
             env,
@@ -287,17 +312,20 @@ def main():
     parser.add_argument("--output_dir", required=True, help="Root output directory")
     parser.add_argument("--gpu", default="0", help="CUDA_VISIBLE_DEVICES value")
 
-    parser.add_argument("--bench_input", default="", help="Bench input root, e.g. /data1/szq/Val/Bench-ori")
-    parser.add_argument("--bench_gt", default="", help="Bench GT root, e.g. /data1/szq/Val/Bench")
-    parser.add_argument("--bench_csv_dir", default="", help="Bench CSV metadata root, e.g. Bench-ori")
-    parser.add_argument("--oblique_input", default="", help="Oblique input root")
+    parser.add_argument("--decoupled_input", default="", help="Decoupled input root. Use decoupled for auto, or the norm-style decoupled-norm root for load.")
+    parser.add_argument("--decoupled_gt", default="", help="Decoupled GT root, e.g. /data1/szq/Val/decoupled-norm")
+    parser.add_argument("--decoupled_csv_dir", default="", help="Decoupled CSV metadata root, e.g. decoupled")
+    parser.add_argument("--bench_input", dest="decoupled_input", help=argparse.SUPPRESS)
+    parser.add_argument("--bench_gt", dest="decoupled_gt", help=argparse.SUPPRESS)
+    parser.add_argument("--bench_csv_dir", dest="decoupled_csv_dir", help=argparse.SUPPRESS)
+    parser.add_argument("--oblique_input", default="", help="Oblique input root. Use Oblique for auto, or Oblique-norm for load.")
     parser.add_argument("--oblique_gt", default="", help="Oblique GT root")
     parser.add_argument("--wild_input", default="", help="Wild input root")
     parser.add_argument("--wild_gt", default="", help="Wild GT root")
 
     parser.add_argument("--batch_size", type=int, default=8, help="Inference batch size; use 8 to reproduce old LoRA runs")
     parser.add_argument("--intrinsics_mode", choices=["auto", "load", "none"], default="auto",
-                        help="auto: use meta.json if present; load: require meta.json; none: do not pass fov_x")
+                        help="auto: use meta.json if present; load: require meta.json and norm-style input roots; none: do not pass fov_x")
     parser.add_argument("--mask_mode", choices=["none", "load"], default="none",
                         help="Reserved. Mask loading is not implemented yet.")
     parser.add_argument("--resize", type=int, default=0, help="Resize long edge; 0 means original size")

@@ -25,7 +25,12 @@ def find_gt_path_wild(pred_path, gt_root_base):
 
     gt_scene_dir = Path(gt_root_base) / scene_name
     
-    possible_depth_dirs = [gt_scene_dir / "depth", gt_scene_dir / "depths", gt_scene_dir / "depth_map"]
+    possible_depth_dirs = [
+        gt_scene_dir / "depth_1k",
+        gt_scene_dir / "depth",
+        gt_scene_dir / "depths",
+        gt_scene_dir / "depth_map",
+    ]
     gt_depth_dir = None
     for d in possible_depth_dirs:
         if d.exists():

@@ -211,7 +211,7 @@ class DatasetAutoParser:
     def _collect_scene_images(self, scene_dir):
         image_paths = []
 
-        # Bench/Oblique-norm: Scene/SampleID/image.jpg.
+        # Norm-style datasets: Scene/SampleID/image.jpg.
         image_paths.extend(scene_dir.rglob("image.jpg"))
         image_paths.extend(scene_dir.rglob("image.png"))
 

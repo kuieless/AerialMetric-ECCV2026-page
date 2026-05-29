@@ -71,8 +71,8 @@ def run_cmd(cmd, log_file, cwd=None, env=None):
 
 def build_active_datasets(args):
     active = {}
-    if args.bench_input:
-        active["Bench"] = {"input": args.bench_input, "gt": args.bench_gt}
+    if args.decoupled_input:
+        active["Decoupled"] = {"input": args.decoupled_input, "gt": args.decoupled_gt}
     if args.oblique_input:
         active["Oblique"] = {"input": args.oblique_input, "gt": args.oblique_gt}
     if args.wild_input:
@@ -136,15 +136,15 @@ def process_checkpoint(ckpt_path, args, env):
             print(f"    ERROR extraction: {e}")
 
     # Step 3: evaluation
-    if args.bench_input and args.bench_gt:
-        bench_pred = os.path.join(extract_out, "Bench")
-        report = os.path.join(bench_pred, "Eval_Report_Bench.txt")
-        if not os.path.exists(report) and os.path.exists(bench_pred):
+    if args.decoupled_input and args.decoupled_gt:
+        decoupled_pred = os.path.join(extract_out, "Decoupled")
+        report = os.path.join(decoupled_pred, "Eval_Report_Decoupled.txt")
+        if not os.path.exists(report) and os.path.exists(decoupled_pred):
             try:
-                run_cmd(["python", "c-eval-bench.py", "--pred", bench_pred, "--gt", args.bench_gt],
+                run_cmd(["python", "c-eval-bench.py", "--pred", decoupled_pred, "--gt", args.decoupled_gt],
                         log_file=run_log, cwd=script_dir, env=env)
             except Exception as e:
-                print(f"    ERROR bench eval: {e}")
+                print(f"    ERROR decoupled eval: {e}")
 
     if args.oblique_input and args.oblique_gt:
         oblique_pred = os.path.join(extract_out, "Oblique")
@@ -190,8 +190,8 @@ def main():
 
     parser.add_argument("--model_type", choices=["full", "head", "neck", "baseline"], required=True,
                         help="Label used in output directory; all types use the same base inference path")
-    parser.add_argument("--bench_input", default="", help="Bench inference input, e.g. Bench or Bench-ori")
-    parser.add_argument("--bench_gt", default="", help="Bench ground-truth root")
+    parser.add_argument("--decoupled_input", default="", help="Decoupled inference input, e.g. decoupled")
+    parser.add_argument("--decoupled_gt", default="", help="Decoupled ground-truth root")
     parser.add_argument("--oblique_input", default="", help="Oblique inference input, e.g. Oblique or Oblique-norm")
     parser.add_argument("--oblique_gt", default="", help="Oblique ground-truth root")
     parser.add_argument("--wild_input", default="", help="Wild inference input")

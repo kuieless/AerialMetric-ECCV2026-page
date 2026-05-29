@@ -66,12 +66,12 @@ def load_csv_metadata(csv_path):
         return {}
 
 def find_gt_path_bench(pred_path, gt_root_base):
-    """Find the matching Bench GT path."""
+    """Find the matching Decoupled GT path."""
     scene_dir_name = pred_path.parent.name # Cleaned_Dataset_Campus
     file_name = pred_path.name # ImageHash.npy
     stem = pred_path.stem
 
-    # Bench normalized format: GT_ROOT/Scene/SampleID/depth.npy
+    # Decoupled norm-style format: GT_ROOT/Scene/SampleID/depth.npy
     gt_path_sample = Path(gt_root_base) / scene_dir_name / stem / "depth.npy"
     if gt_path_sample.exists():
         return gt_path_sample
@@ -147,7 +147,7 @@ def run_bench_evaluation(pred_root, gt_root_base, csv_dir=None):
     pred_root = Path(pred_root)
     csv_dir = Path(csv_dir) if csv_dir else Path(gt_root_base)
     
-    print(f"Starting Bench evaluation")
+    print(f"Starting Decoupled evaluation")
     print(f"Pred Root: {pred_root}")
     print(f"GT Root:   {gt_root_base}")
     print(f"CSV Dir:   {csv_dir}")
@@ -289,9 +289,9 @@ def run_bench_evaluation(pred_root, gt_root_base, csv_dir=None):
             print(data_fmt.format(h, len(height_stats[h]), *m))
 
     # Save summary report.
-    output_file = pred_root / "Eval_Report_Bench.txt"
+    output_file = pred_root / "Eval_Report_Decoupled.txt"
     with open(output_file, "w") as f:
-        f.write(f"Bench Evaluation\nPred: {pred_root}\nGT: {gt_root_base}\nCSV: {csv_dir}\n\n")
+        f.write(f"Decoupled Evaluation\nPred: {pred_root}\nGT: {gt_root_base}\nCSV: {csv_dir}\n\n")
         f.write(header_fmt.format(*headers) + "\n")
         f.write("-" * 125 + "\n")
         
@@ -312,7 +312,7 @@ def run_bench_evaluation(pred_root, gt_root_base, csv_dir=None):
     # Export per-image details to CSV.
     if per_image_records:
         df_detailed = pd.DataFrame(per_image_records)
-        detailed_output_file = pred_root / "Eval_Report_Bench_Detailed.csv"
+        detailed_output_file = pred_root / "Eval_Report_Decoupled_Detailed.csv"
         # Save CSV with four decimal places.
         df_detailed.to_csv(detailed_output_file, index=False, float_format="%.4f", encoding='utf-8-sig')
         print(f"Per-image details saved: {detailed_output_file}")
@@ -321,8 +321,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     # CLI arguments.
     parser.add_argument("--pred", required=True, help="Path to extracted predictions (flattened .npy files)")
-    parser.add_argument("--gt", required=True, help="Path to Bench GT dataset root")
-    parser.add_argument("--csv_dir", default=None, help="Path to Bench CSV metadata. Defaults to --gt.")
+    parser.add_argument("--gt", required=True, help="Path to Decoupled GT dataset root")
+    parser.add_argument("--csv_dir", default=None, help="Path to Decoupled CSV metadata. Defaults to --gt.")
     args = parser.parse_args()
     
     if not os.path.exists(args.pred):

@@ -22,7 +22,10 @@ Dataset layout requirements are documented in `DATA_ORGANIZATION.md`.
 
 ### 1. Aerial Benchmark
 
-Use this command for AerialMetric MoGe variants on Bench, Oblique, and Wild.
+Use this command for AerialMetric MoGe variants on Decoupled, Oblique, and Wild.
+Use `--intrinsics_mode none` or `auto` with the standard layout, and
+`--intrinsics_mode load` with the norm-style Decoupled/Oblique inputs that include
+`meta.json`. Wild stays on the standard layout and is handled with `auto`.
 
 Supported `--model_type` values:
 
@@ -40,9 +43,9 @@ CUDA_VISIBLE_DEVICES=7 conda run -n moge310 python \
   --model_type lora96 \
   --checkpoint /path/to/Moge2-Aerial.pt \
   --lora_config MoGe/configs/Final_train/config-lora-all.json \
-  --bench_input /path/to/Bench-ori \
-  --bench_gt /path/to/Bench \
-  --bench_csv_dir /path/to/Bench-ori \
+  --decoupled_input /path/to/decoupled \
+  --decoupled_gt /path/to/decoupled-norm \
+  --decoupled_csv_dir /path/to/decoupled \
   --oblique_input /path/to/Oblique \
   --oblique_gt /path/to/Oblique \
   --wild_input /path/to/Wild \
@@ -63,6 +66,8 @@ More details:
 ```text
 MoGe/README_AERIAL_BENCHMARK.md
 ```
+
+The dataset layouts for both modes are documented in `DATA_ORGANIZATION.md`.
 
 ### 2. Ground Benchmark For MoGe-2
 

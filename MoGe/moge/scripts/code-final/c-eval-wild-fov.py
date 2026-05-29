@@ -97,7 +97,9 @@ def run_fov_evaluation(pred_root_base, gt_root_base):
             continue 
 
         # Debug 3: load GT depth.
-        gt_path = gt_scene_dir / "depth" / f"{image_stem}.npy"
+        gt_path = gt_scene_dir / "depth_1k" / f"{image_stem}.npy"
+        if not gt_path.exists():
+            gt_path = gt_scene_dir / "depth" / f"{image_stem}.npy"
         if not gt_path.exists(): 
             gt_path = gt_scene_dir / "depth" / f"{image_stem}_depth.npy"
             if not gt_path.exists(): 

@@ -39,7 +39,7 @@ The CLI runs the complete benchmark pipeline:
 input images
   -> inference
   -> extract nested depth.npy files
-  -> evaluate Bench / Oblique / Wild for the selected model type
+  -> evaluate Decoupled / Oblique / Wild for the selected model type
   -> optionally delete intermediate predictions
 ```
 
@@ -70,20 +70,20 @@ Scene/rgbs/*.jpg
 Scene/color/*.jpg
 ```
 
-Bench evaluation supports:
+Decoupled evaluation supports:
 
 ```text
-Bench GT:
+Decoupled GT:
   Scene/SampleID/depth.npy
 
-Bench CSV metadata:
+Decoupled CSV metadata:
   final_dataset_campus.csv
   final_dataset_factory.csv
   final_dataset_farm.csv
   final_dataset_grass.csv
 ```
 
-If the CSV files are stored separately from the GT root, pass `--bench_csv_dir`.
+If the CSV files are stored separately from the GT root, pass `--decoupled_csv_dir`.
 
 Oblique and Wild GT roots are expected to contain scene-level depth folders:
 
@@ -93,6 +93,9 @@ Oblique or Wild GT:
   Scene/depths/SampleID.npy
   Scene/depth/SampleID_depth.npy
 ```
+
+For Wild, keep the original depth maps in `depth/` and store the upsampled
+1k-aligned copies in `depth_1k/`.
 
 Wild FoV evaluation also reads per-scene metadata when available:
 
@@ -136,7 +139,7 @@ full, head, neck, lora64, lora96, lora128
 For each model type, pass all three datasets:
 
 ```text
---bench_input / --bench_gt
+--decoupled_input / --decoupled_gt
 --oblique_input / --oblique_gt
 --wild_input / --wild_gt
 ```
@@ -145,7 +148,7 @@ The CLI processes all provided datasets in one run.
 
 ## LoRA Evaluation Example
 
-Run LoRA-96 on Bench, Oblique, and Wild:
+Run LoRA-96 on Decoupled, Oblique, and Wild:
 
 ```bash
 CUDA_VISIBLE_DEVICES=7 conda run -n moge310 python \
@@ -153,9 +156,9 @@ CUDA_VISIBLE_DEVICES=7 conda run -n moge310 python \
   --model_type lora96 \
   --checkpoint /path/to/Moge2-Aerial.pt \
   --lora_config /path/to/config-lora-all.json \
-  --bench_input /path/to/Bench-ori \
-  --bench_gt /path/to/Bench \
-  --bench_csv_dir /path/to/Bench-ori \
+  --decoupled_input /path/to/decoupled \
+  --decoupled_gt /path/to/decoupled-norm \
+  --decoupled_csv_dir /path/to/decoupled \
   --oblique_input /path/to/Oblique \
   --oblique_gt /path/to/Oblique \
   --wild_input /path/to/Wild \
@@ -180,9 +183,9 @@ CUDA_VISIBLE_DEVICES=7 conda run -n moge310 python \
   /home/szq/moge2/MoGe/moge/scripts/code-final/aerial_eval_cli.py \
   --model_type full \
   --checkpoint /path/to/full_model.pt \
-  --bench_input /path/to/Bench-ori \
-  --bench_gt /path/to/Bench \
-  --bench_csv_dir /path/to/Bench-ori \
+  --decoupled_input /path/to/decoupled \
+  --decoupled_gt /path/to/decoupled-norm \
+  --decoupled_csv_dir /path/to/decoupled \
   --oblique_input /path/to/Oblique \
   --oblique_gt /path/to/Oblique \
   --wild_input /path/to/Wild \
@@ -207,9 +210,9 @@ CUDA_VISIBLE_DEVICES=7 conda run -n moge310 python \
   --model_type lora96 \
   --checkpoint_root /path/to/checkpoints \
   --lora_config /path/to/config-lora-all.json \
-  --bench_input /path/to/Bench-ori \
-  --bench_gt /path/to/Bench \
-  --bench_csv_dir /path/to/Bench-ori \
+  --decoupled_input /path/to/decoupled \
+  --decoupled_gt /path/to/decoupled-norm \
+  --decoupled_csv_dir /path/to/decoupled \
   --oblique_input /path/to/Oblique \
   --oblique_gt /path/to/Oblique \
   --wild_input /path/to/Wild \
@@ -244,7 +247,7 @@ resize
 intrinsics_mode
 input dataset root
 GT dataset root
-Bench CSV directory
+Decoupled CSV directory
 evaluation script version
 ```
 
