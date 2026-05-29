@@ -71,7 +71,7 @@ The dataset layouts for both modes are documented in `DATA_ORGANIZATION.md`.
 
 ### 2. Ground Benchmark For MoGe-2
 
-Use this command to evaluate a MoGe-2 checkpoint on the ground metric-depth benchmark:
+Use these commands to evaluate MoGe-2 checkpoints on the ground metric-depth benchmark:
 
 ```text
 NYUv2, KITTI, ETH3D, iBims-1, DDAD, DIODE, HAMMER
@@ -99,6 +99,23 @@ Use GT intrinsics by adding:
 --oracle
 ```
 
+For the LoRA ground path, use the dedicated wrapper and LoRA baseline:
+
+```bash
+cd /path/to/AerialMetric/Ground_MoGe
+
+CUDA_VISIBLE_DEVICES=0 conda run -n moge310 python \
+  moge/scripts/eval_baselinelora.py \
+  --baseline baselines/moge2_lora.py \
+  --lora_config /path/to/config-lora-all.json \
+  --lora_weight /path/to/lora_checkpoint.pt \
+  --lora_rank 96 \
+  --resolution_level 9 \
+  --config configs/eval/ground_metric_benchmarks_local.json \
+  --output eval_output_release/moge2_ground_lora.json \
+  --oracle
+```
+
 The default local config points to:
 
 ```text
@@ -106,6 +123,8 @@ The default local config points to:
 ```
 
 Edit `Ground_MoGe/configs/eval/ground_metric_benchmarks_local.json` if your dataset root is different.
+
+For a 5% smoke test, use a config where each dataset sets `subset: 20`.
 
 More details:
 
