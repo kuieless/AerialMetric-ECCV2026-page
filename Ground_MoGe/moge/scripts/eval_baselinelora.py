@@ -368,8 +368,8 @@ def main(
                             clip_max = eval_settings['depth_max'] if eval_settings['depth_max'] is not None else float('inf')
                             pred_depth_metric = pred_depth_metric.clamp(min=clip_min, max=clip_max)
                             pred['depth_metric'] = pred_depth_metric
-                    if eval_settings['require_pred_valid']:
-                        eval_mask = eval_mask & torch.isfinite(pred_depth_metric) & (pred_depth_metric > 0)
+                    pred_valid_mask = torch.isfinite(pred_depth_metric) & (pred_depth_metric > 0)
+                    eval_mask = eval_mask & pred_valid_mask
 
                 valid_pixels = int(eval_mask.sum().item())
                 if valid_pixels < eval_settings['min_valid_pixels']:

@@ -59,7 +59,7 @@ Some examples of baselines are provided in [`baselines/`](../baselines/). Pass t
 
 ## Run Evaluation
 
-Run the script [`moge/scripts/eval_baseline.py`](../moge/scripts/eval_baseline.py). 
+Run the script [`moge/scripts/eval_baseline.py`](../moge/scripts/eval_baseline.py) for baseline checkpoints.
 For example, 
 
 ```bash
@@ -83,6 +83,20 @@ python moge/scripts/eval_baseline.py --baseline baselines/moge2_metric.py --conf
 
 # Compute all metrics (default is metric-depth-only)
 python moge/scripts/eval_baseline.py --baseline baselines/moge2_metric.py --config configs/eval/metric_benchmarks_plus_custom_example.json --output eval_output/moge2_metric_vitl_all_metrics.json --pretrained Ruicheng/moge-2-vitl --resolution_level 9 --all_metrics
+```
+
+For the independent LoRA ground pipeline, use [`moge/scripts/eval_baselinelora.py`](../moge/scripts/eval_baselinelora.py):
+
+```bash
+python moge/scripts/eval_baselinelora.py \
+  --baseline baselines/moge2_lora.py \
+  --lora_config /path/to/config-lora-all.json \
+  --lora_weight /path/to/lora_checkpoint.pt \
+  --lora_rank 96 \
+  --resolution_level 9 \
+  --config configs/eval/ground_metric_benchmarks_local.json \
+  --output eval_output_release/moge2_ground_lora.json \
+  --oracle
 ```
 
 The `--baselies` `--input` `--output` arguments are for the inference script. The rest arguments, e.g. `--pretrained` `--resolution_level`, are custormized for loading the baseline model.

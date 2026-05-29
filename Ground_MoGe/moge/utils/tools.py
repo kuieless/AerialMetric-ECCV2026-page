@@ -75,8 +75,18 @@ def key_average(list_of_dicts: list) -> Dict[str, Any]:
         values = []
         for d in list_of_dicts:
             v = get_nested_dict(d, k)
-            if v is not None and not math.isnan(v):
-                values.append(v)
+            if v is None:
+                continue
+            if isinstance(v, Number):
+                v = float(v)
+                if math.isfinite(v):
+                    values.append(v)
+                continue
+            try:
+                if not math.isnan(v) and math.isfinite(v):
+                    values.append(v)
+            except TypeError:
+                continue
         avg = sum(values) / len(values) if values else float('nan')
         set_nested_dict(result, k, avg)
     return result
