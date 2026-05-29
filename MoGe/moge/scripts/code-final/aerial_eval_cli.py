@@ -144,7 +144,7 @@ def inference_command(args, ckpt_path, dataset_input, dataset_output):
     ]
 
 
-def evaluate_dataset(args, ds_name, ds_cfg, extract_out, script_dir, log_file, env):
+def evaluate_dataset(args, ds_name, ds_cfg, infer_out, extract_out, script_dir, log_file, env):
     pred_dir = os.path.join(extract_out, ds_name)
     if not os.path.exists(pred_dir):
         print(f"    Skip eval: {ds_name} predictions not found")
@@ -174,9 +174,19 @@ def evaluate_dataset(args, ds_name, ds_cfg, extract_out, script_dir, log_file, e
         report_multi = os.path.join(pred_dir, "Eval_Report_Wild_MultiRange.txt")
         if not os.path.exists(report_multi):
             run_cmd([python, "c-eval-wild.py", "--pred", pred_dir, "--gt", ds_cfg["gt"]], log_file, script_dir, env)
+        if not args.eval_wild_fov:
+            return
+
+        # FoV evaluation needs the unflattened inference layout because each
+        # sample directory contains both depth.npy and fov.json.
+        fov_pred_dir = os.path.join(infer_out, ds_name)
         report_fov = os.path.join(pred_dir, "fov_analysis_details.csv")
+        source_report_fov = os.path.join(fov_pred_dir, "fov_analysis_details.csv")
         if not os.path.exists(report_fov):
-            run_cmd([python, "c-eval-wild-fov.py", "--pred", pred_dir, "--gt", ds_cfg["gt"]], log_file, script_dir, env)
+            if not os.path.exists(source_report_fov):
+                run_cmd([python, "c-eval-wild-fov.py", "--pred", fov_pred_dir, "--gt", ds_cfg["gt"]], log_file, script_dir, env)
+            if os.path.exists(source_report_fov):
+                shutil.copy2(source_report_fov, report_fov)
 
 
 def cleanup_intermediate(base_dir):
@@ -195,7 +205,7 @@ def cleanup_intermediate(base_dir):
     print(f"    Cleanup: removed Infer={infer_dir}, extracted_npy={removed_npy}")
 
 
-def reports_complete(datasets, extract_out):
+def reports_complete(args, datasets, extract_out):
     expected = []
     for ds_name in datasets:
         pred_dir = Path(extract_out) / ds_name
@@ -205,7 +215,8 @@ def reports_complete(datasets, extract_out):
             expected.append(pred_dir / "Eval_Report_Oblique_Pixel.txt")
         elif ds_name == "Wild":
             expected.append(pred_dir / "Eval_Report_Wild_MultiRange.txt")
-            expected.append(pred_dir / "fov_analysis_details.csv")
+            if args.eval_wild_fov:
+                expected.append(pred_dir / "fov_analysis_details.csv")
     missing = [str(path) for path in expected if not path.exists()]
     if missing:
         print("    Cleanup skipped: missing report(s)")
@@ -256,9 +267,9 @@ def process_checkpoint(args, ckpt_path, script_dir, env):
         )
 
     for ds_name, ds_cfg in datasets.items():
-        evaluate_dataset(args, ds_name, ds_cfg, str(extract_out), script_dir, str(log_file), env)
+        evaluate_dataset(args, ds_name, ds_cfg, str(infer_out), str(extract_out), script_dir, str(log_file), env)
 
-    if args.cleanup_intermediate and reports_complete(datasets, extract_out):
+    if args.cleanup_intermediate and reports_complete(args, datasets, extract_out):
         cleanup_intermediate(model_dir)
 
 
@@ -291,6 +302,8 @@ def main():
                         help="Reserved. Mask loading is not implemented yet.")
     parser.add_argument("--resize", type=int, default=0, help="Resize long edge; 0 means original size")
     parser.add_argument("--sampling_ratio", type=float, default=1.0, help="Data sampling ratio")
+    parser.add_argument("--eval_wild_fov", action="store_true",
+                        help="Optional internal analysis: evaluate Wild FoV predictions and write fov_analysis_details.csv")
 
     parser.add_argument("--step_interval", type=int, default=1000, help="Evaluate every N steps when using checkpoint_root")
     parser.add_argument("--exact_steps", default="", help="Comma-separated extra checkpoint steps")

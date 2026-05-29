@@ -18,6 +18,8 @@ The repository is organized into three benchmark interfaces:
 | `Ground_MoGe/` | Ground benchmark for MoGe-2 checkpoints |
 | `Depth_Baselines/` | Ground benchmark wrappers for UniDepth, DepthPro, and ZoeDepth |
 
+Dataset layout requirements are documented in `DATA_ORGANIZATION.md`.
+
 ### 1. Aerial Benchmark
 
 Use this command for AerialMetric MoGe variants on Bench, Oblique, and Wild.
