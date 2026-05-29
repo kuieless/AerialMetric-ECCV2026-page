@@ -27,7 +27,7 @@ Use this command for AerialMetric MoGe variants on Bench, Oblique, and Wild.
 Supported `--model_type` values:
 
 ```text
-full, head, neck, lora64, lora96, lora128
+full, freezevit, scaleheadonly, lora64, lora96, lora128
 ```
 
 Example:
