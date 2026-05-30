@@ -90,11 +90,13 @@ def active_datasets(args):
             "input": args.decoupled_input,
             "gt": args.decoupled_gt,
             "csv_dir": args.decoupled_csv_dir,
+            "mask_dir": args.decoupled_mask_dir,
         }
     if args.oblique_input:
         datasets["Oblique"] = {
             "input": args.oblique_input,
             "gt": args.oblique_gt,
+            "mask_dir": args.oblique_mask_dir,
         }
     if args.wild_input:
         datasets["Wild"] = {
@@ -123,8 +125,6 @@ def dataset_intrinsics_mode(args, ds_name):
 def validate_args(args):
     if args.model_type in LORA_RANK_BY_TYPE and not args.lora_config:
         raise SystemExit("--lora_config is required for lora64/lora96/lora128")
-    if args.mask_mode != "none":
-        print("WARNING: mask_mode is reserved but not implemented yet; it will not affect inference/evaluation.")
 
     datasets = active_datasets(args)
     if not datasets:
@@ -133,6 +133,8 @@ def validate_args(args):
     for name, ds in datasets.items():
         if not ds["gt"]:
             raise SystemExit(f"--{name.lower()}_gt is required when --{name.lower()}_input is set")
+        if args.mask_mode == "load" and name in {"Decoupled", "Oblique"} and not ds.get("mask_dir"):
+            raise SystemExit(f"--{name.lower()}_mask_dir is required when --mask_mode load is used")
         if name in {"Decoupled", "Oblique"} and args.intrinsics_mode == "load" and not root_has_meta_json(ds["input"]):
             raise SystemExit(
                 f"{name} input root has no meta.json files. "
@@ -184,6 +186,8 @@ def evaluate_dataset(args, ds_name, ds_cfg, infer_out, extract_out, script_dir, 
         cmd = [python, "c-eval-bench.py", "--pred", pred_dir, "--gt", ds_cfg["gt"]]
         if ds_cfg.get("csv_dir"):
             cmd.extend(["--csv_dir", ds_cfg["csv_dir"]])
+        if args.mask_mode == "load" and ds_cfg.get("mask_dir"):
+            cmd.extend(["--mask_dir", ds_cfg["mask_dir"]])
         run_cmd(cmd, log_file, script_dir, env)
         return
 
@@ -192,7 +196,10 @@ def evaluate_dataset(args, ds_name, ds_cfg, infer_out, extract_out, script_dir, 
         if os.path.exists(report):
             print("    Skip eval: Oblique report exists")
             return
-        run_cmd([python, "c-eval-oblique.py", "--pred", pred_dir, "--gt", ds_cfg["gt"]], log_file, script_dir, env)
+        cmd = [python, "c-eval-oblique.py", "--pred", pred_dir, "--gt", ds_cfg["gt"]]
+        if args.mask_mode == "load" and ds_cfg.get("mask_dir"):
+            cmd.extend(["--mask_dir", ds_cfg["mask_dir"]])
+        run_cmd(cmd, log_file, script_dir, env)
         return
 
     if ds_name == "Wild":
@@ -320,14 +327,16 @@ def main():
     parser.add_argument("--bench_csv_dir", dest="decoupled_csv_dir", help=argparse.SUPPRESS)
     parser.add_argument("--oblique_input", default="", help="Oblique input root. Use Oblique for auto, or Oblique-norm for load.")
     parser.add_argument("--oblique_gt", default="", help="Oblique GT root")
+    parser.add_argument("--oblique_mask_dir", default="", help="Oblique mask root, e.g. /data1/szq/Val/Oblique-masks")
     parser.add_argument("--wild_input", default="", help="Wild input root")
     parser.add_argument("--wild_gt", default="", help="Wild GT root")
+    parser.add_argument("--decoupled_mask_dir", default="", help="Decoupled mask root, e.g. /data1/szq/Val/decoupled-masks")
 
     parser.add_argument("--batch_size", type=int, default=8, help="Inference batch size; use 8 to reproduce old LoRA runs")
     parser.add_argument("--intrinsics_mode", choices=["auto", "load", "none"], default="auto",
                         help="auto: use meta.json if present; load: require meta.json and norm-style input roots; none: do not pass fov_x")
     parser.add_argument("--mask_mode", choices=["none", "load"], default="none",
-                        help="Reserved. Mask loading is not implemented yet.")
+                        help="Load per-sample PNG masks for Decoupled/Oblique and exclude white pixels from evaluation.")
     parser.add_argument("--resize", type=int, default=0, help="Resize long edge; 0 means original size")
     parser.add_argument("--sampling_ratio", type=float, default=1.0, help="Data sampling ratio")
     parser.add_argument("--eval_wild_fov", action="store_true",

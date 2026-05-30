@@ -81,6 +81,13 @@ Decoupled CSV metadata:
   final_dataset_factory.csv
   final_dataset_farm.csv
   final_dataset_grass.csv
+
+Optional mask root:
+
+```text
+Decoupled masks:
+  Scene-mask/SampleID.png
+```
 ```
 
 If the CSV files are stored separately from the GT root, pass `--decoupled_csv_dir`.
@@ -96,6 +103,13 @@ Oblique or Wild GT:
 
 For Wild, keep the original depth maps in `depth/` and store the upsampled
 1k-aligned copies in `depth_1k/`.
+
+Optional mask root:
+
+```text
+Oblique masks:
+  Scene-mask/SampleID.png
+```
 
 Wild FoV evaluation also reads per-scene metadata when available:
 
@@ -117,7 +131,7 @@ Wild GT:
 | `--batch_size` | Inference batch size. Use `8` to reproduce previous LoRA runs when memory allows |
 | `--resize` | Long-edge resize. `0` means original resolution |
 | `--intrinsics_mode` | `auto`, `load`, or `none` |
-| `--mask_mode` | Reserved. `none` and `load` are accepted, but mask evaluation is not implemented yet |
+| `--mask_mode` | `load` reads PNG masks for Decoupled/Oblique and excludes white pixels from scoring |
 | `--cleanup_intermediate` | Delete large intermediate predictions after reports are generated |
 
 Intrinsics modes:
@@ -168,7 +182,9 @@ CUDA_VISIBLE_DEVICES=7 conda run -n moge310 python \
   --resize 0 \
   --batch_size 8 \
   --intrinsics_mode none \
-  --mask_mode none \
+  --mask_mode load \
+  --decoupled_mask_dir /path/to/decoupled-masks \
+  --oblique_mask_dir /path/to/Oblique-masks \
   --cleanup_intermediate
 ```
 

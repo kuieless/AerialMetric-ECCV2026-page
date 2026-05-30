@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import torch
 import torch.nn.functional as F
+import cv2
 from tqdm import tqdm
 from pathlib import Path
 from collections import defaultdict
@@ -88,6 +89,38 @@ def find_gt_path_bench(pred_path, gt_root_base):
         
     return None
 
+def find_mask_path_bench(pred_path, mask_root_base):
+    scene_dir_name = pred_path.parent.name
+    stem = pred_path.stem
+    mask_root = Path(mask_root_base)
+    candidates = [
+        mask_root / f"{scene_dir_name}-mask" / f"{stem}.png",
+        mask_root / scene_dir_name / f"{stem}.png",
+        mask_root / f"{scene_dir_name}.png",
+    ]
+    for cand in candidates:
+        if cand.exists():
+            return cand
+    return None
+
+def load_invalid_mask(mask_path, target_shape, device):
+    if mask_path is None:
+        return None
+    mask_np = cv2.imread(str(mask_path), cv2.IMREAD_UNCHANGED)
+    if mask_np is None:
+        return None
+    if mask_np.ndim == 3:
+        mask_np = mask_np[..., 0]
+    invalid_np = mask_np > 127
+    mask = torch.from_numpy(invalid_np).to(device)
+    if mask.shape != target_shape:
+        mask = F.interpolate(
+            mask.to(torch.float32).unsqueeze(0).unsqueeze(0),
+            size=target_shape,
+            mode='nearest',
+        ).squeeze(0).squeeze(0) > 0.5
+    return mask.bool()
+
 def align_scale_shift_torch(pred, target, mask):
     """Least-squares scale-shift alignment."""
     safe_mask = mask & torch.isfinite(pred) & (pred > 1e-6)
@@ -142,7 +175,7 @@ def compute_metrics(gt, pred, mask):
     # 0:AbsRel, 1:RMSE, 2:a1.10, 3:a1.25, 4:SI-Log, 5:Spearman, 6:N-RMSE
     return torch.tensor([abs_rel, rmse, a1_10, a1_25, si_log, spearman, n_rmse])
 
-def run_bench_evaluation(pred_root, gt_root_base, csv_dir=None):
+def run_bench_evaluation(pred_root, gt_root_base, csv_dir=None, mask_dir=None):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     pred_root = Path(pred_root)
     csv_dir = Path(csv_dir) if csv_dir else Path(gt_root_base)
@@ -151,6 +184,8 @@ def run_bench_evaluation(pred_root, gt_root_base, csv_dir=None):
     print(f"Pred Root: {pred_root}")
     print(f"GT Root:   {gt_root_base}")
     print(f"CSV Dir:   {csv_dir}")
+    if mask_dir:
+        print(f"Mask Dir:  {mask_dir}")
 
     # Preload CSV metadata.
     full_meta = {}
@@ -187,6 +222,7 @@ def run_bench_evaluation(pred_root, gt_root_base, csv_dir=None):
         # Step A: find GT.
         gt_path = find_gt_path_bench(pred_path, gt_root_base)
         if gt_path is None: continue
+        mask_path = find_mask_path_bench(pred_path, mask_dir) if mask_dir else None
 
         # Step B: find CSV metadata.
         meta = full_meta.get(scene_name, {}).get(stem, None)
@@ -204,8 +240,12 @@ def run_bench_evaluation(pred_root, gt_root_base, csv_dir=None):
         
         if pred.shape != gt.shape:
              pred = F.interpolate(pred.unsqueeze(0).unsqueeze(0), size=gt.shape, mode='bilinear').squeeze()
+
+        external_invalid_mask = load_invalid_mask(mask_path, gt.shape, device) if mask_path is not None else None
         
         mask = (gt > MIN_DEPTH) & (gt < MAX_DEPTH) & torch.isfinite(gt)
+        if external_invalid_mask is not None:
+            mask = mask & (~external_invalid_mask)
         if mask.sum() < 10: continue
 
         if USE_MEDIAN_SCALING:
@@ -323,9 +363,10 @@ if __name__ == "__main__":
     parser.add_argument("--pred", required=True, help="Path to extracted predictions (flattened .npy files)")
     parser.add_argument("--gt", required=True, help="Path to Decoupled GT dataset root")
     parser.add_argument("--csv_dir", default=None, help="Path to Decoupled CSV metadata. Defaults to --gt.")
+    parser.add_argument("--mask_dir", default=None, help="Path to Decoupled mask root with white invalid pixels")
     args = parser.parse_args()
     
     if not os.path.exists(args.pred):
         print(f"ERROR: prediction directory does not exist {args.pred}")
     else:
-        run_bench_evaluation(args.pred, args.gt, args.csv_dir)
+        run_bench_evaluation(args.pred, args.gt, args.csv_dir, args.mask_dir)

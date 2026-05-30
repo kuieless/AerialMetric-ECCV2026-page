@@ -55,7 +55,9 @@ CUDA_VISIBLE_DEVICES=7 conda run -n moge310 python \
   --resize 0 \
   --batch_size 8 \
   --intrinsics_mode none \
-  --mask_mode none \
+  --mask_mode load \
+  --decoupled_mask_dir /path/to/decoupled-masks \
+  --oblique_mask_dir /path/to/Oblique-masks \
   --cleanup_intermediate
 ```
 
