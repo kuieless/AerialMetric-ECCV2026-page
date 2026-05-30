@@ -135,7 +135,7 @@ def validate_args(args):
             raise SystemExit(f"--{name.lower()}_gt is required when --{name.lower()}_input is set")
         if args.mask_mode == "load" and name in {"Decoupled", "Oblique"} and not ds.get("mask_dir"):
             raise SystemExit(f"--{name.lower()}_mask_dir is required when --mask_mode load is used")
-        if name in {"Decoupled", "Oblique"} and args.intrinsics_mode == "load" and not root_has_meta_json(ds["input"]):
+        if name in {"Decoupled", "Oblique"} and dataset_intrinsics_mode(args, name) == "load" and not root_has_meta_json(ds["input"]):
             raise SystemExit(
                 f"{name} input root has no meta.json files. "
                 f"Switch to the norm-style {name.lower()} dataset layout before using --intrinsics_mode load."

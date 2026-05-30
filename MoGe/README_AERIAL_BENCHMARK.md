@@ -56,6 +56,10 @@ Output layout:
 
 If `--cleanup_intermediate` is used, the CLI removes `Infer/` and extracted `.npy` files after reports are generated. Text and CSV reports are kept.
 
+For the released paper numbers, use the original LoRA evaluation chain:
+Decoupled and Oblique use GT intrinsics from the norm-style inputs, Wild does
+not use intrinsics, and masks are only applied in evaluation when explicitly enabled.
+
 ## Data Layout
 
 The inference scanner supports these image layouts:
@@ -162,7 +166,7 @@ The CLI processes all provided datasets in one run.
 
 ## LoRA Evaluation Example
 
-Run LoRA-96 on Decoupled, Oblique, and Wild:
+Run LoRA-96 on Decoupled, Oblique, and Wild using the released paper chain:
 
 ```bash
 CUDA_VISIBLE_DEVICES=7 conda run -n moge310 python \
@@ -181,12 +185,11 @@ CUDA_VISIBLE_DEVICES=7 conda run -n moge310 python \
   --gpu 7 \
   --resize 0 \
   --batch_size 8 \
-  --intrinsics_mode none \
-  --mask_mode load \
-  --decoupled_mask_dir /path/to/decoupled-masks \
-  --oblique_mask_dir /path/to/Oblique-masks \
+  --intrinsics_mode load \
   --cleanup_intermediate
 ```
+
+Use `--mask_mode load` only for the optional internal mask-aware analysis.
 
 Use `--model_type lora64` or `--model_type lora128` for other LoRA ranks. The LoRA alpha is set automatically to `2 * rank`.
 
@@ -269,4 +272,4 @@ evaluation script version
 
 `batch_size` can affect predictions because images in the same batch are padded to the maximum height and width in that batch. To reproduce old LoRA runs, use `--batch_size 8` when GPU memory allows.
 
-Mask loading is intentionally exposed as `--mask_mode` for future compatibility, but it is currently not used by inference or evaluation.
+Use `--mask_mode load` only when you intentionally want the optional internal mask-aware analysis.

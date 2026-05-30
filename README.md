@@ -23,9 +23,9 @@ Dataset layout requirements are documented in `DATA_ORGANIZATION.md`.
 ### 1. Aerial Benchmark
 
 Use this command for AerialMetric MoGe variants on Decoupled, Oblique, and Wild.
-Use `--intrinsics_mode none` or `auto` with the standard layout, and
-`--intrinsics_mode load` with the norm-style Decoupled/Oblique inputs that include
-`meta.json`. Wild stays on the standard layout and is handled with `auto`.
+For the released benchmark, use the original LoRA evaluation chain:
+Decoupled and Oblique use GT intrinsics from the norm-style inputs, Wild does
+not use intrinsics, and masks are only applied in evaluation when explicitly enabled.
 
 Supported `--model_type` values:
 
@@ -54,12 +54,11 @@ CUDA_VISIBLE_DEVICES=7 conda run -n moge310 python \
   --gpu 7 \
   --resize 0 \
   --batch_size 8 \
-  --intrinsics_mode none \
-  --mask_mode load \
-  --decoupled_mask_dir /path/to/decoupled-masks \
-  --oblique_mask_dir /path/to/Oblique-masks \
+  --intrinsics_mode load \
   --cleanup_intermediate
 ```
+
+Add `--mask_mode load` only for the optional internal mask-aware analysis.
 
 For non-LoRA checkpoints, use `--model_type full`, `head`, or `neck` and omit `--lora_config`.
 
