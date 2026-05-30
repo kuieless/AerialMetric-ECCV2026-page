@@ -138,6 +138,20 @@ Ground_MoGe/README_GROUND_BENCHMARK.md
 
 Use this wrapper to evaluate UniDepth, DepthPro, or ZoeDepth on the same ground benchmark.
 
+These baselines should be prepared according to their official repositories. Keep the model-specific environment separate from `moge310` if you want to reproduce each third-party baseline exactly.
+
+| Model | Official repo | Environment setup |
+|---|---|---|
+| DepthPro | [apple/ml-depth-pro](https://github.com/apple/ml-depth-pro) | `conda create -n depth-pro -y python=3.9`<br>`conda activate depth-pro`<br>`pip install -e .`<br>`source get_pretrained_models.sh` |
+| ZoeDepth | [isl-org/ZoeDepth](https://github.com/isl-org/ZoeDepth) | `mamba env create -n zoe --file environment.yml`<br>`mamba activate zoe`<br>or `conda env create -n zoe --file environment.yml`<br>`conda activate zoe` |
+| UniDepth | [lpiccinelli-eth/unidepth](https://github.com/lpiccinelli-eth/unidepth) | `python -m venv <YOUR-VENVS-DIR>/Unidepth`<br>`source <YOUR-VENVS-DIR>/Unidepth/bin/activate`<br>`pip install -e . --extra-index-url https://download.pytorch.org/whl/cu118`<br>`cd unidepth/ops/knn; bash compile.sh; cd ../../../` |
+
+Official setup notes:
+
+- DepthPro recommends Python 3.9 and a local editable install from the repo root.
+- ZoeDepth uses the repository-provided `environment.yml`.
+- UniDepth requires Linux, Python 3.10+, CUDA 11.8+, and the KNN extension compiled for evaluation.
+
 Run from the repository root:
 
 ```bash
