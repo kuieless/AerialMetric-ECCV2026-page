@@ -11,3 +11,5 @@ DJI-self2-final/
 environment.yml
 final_merged.csv
 fov_stats.csv
+.DS_Store
+**/.DS_Store
