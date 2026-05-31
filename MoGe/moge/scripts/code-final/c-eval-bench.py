@@ -243,7 +243,7 @@ def run_bench_evaluation(pred_root, gt_root_base, csv_dir=None, mask_dir=None):
 
         external_invalid_mask = load_invalid_mask(mask_path, gt.shape, device) if mask_path is not None else None
         
-        mask = (gt > MIN_DEPTH) & (gt < MAX_DEPTH) & torch.isfinite(gt)
+        mask = (gt > MIN_DEPTH) & (gt < MAX_DEPTH) & torch.isfinite(gt) & torch.isfinite(pred) & (pred > 0)
         if external_invalid_mask is not None:
             mask = mask & (~external_invalid_mask)
         if mask.sum() < 10: continue

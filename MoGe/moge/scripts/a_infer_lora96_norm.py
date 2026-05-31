@@ -34,7 +34,7 @@ except ImportError:
 # Core engine
 
 class MogeLoRAEngine:
-    def __init__(self, config_path, lora_path, device="cuda", fp16=True, lora_rank=96, intrinsics_mode="auto"):
+    def __init__(self, config_path, lora_path, device="cuda", fp16=True, lora_rank=96, intrinsics_mode="none"):
         self.device = torch.device(device)
         self.fp16 = fp16
         self.lora_rank = lora_rank
@@ -192,10 +192,10 @@ class MogeLoRAEngine:
         if has_fov:
             infer_kwargs['fov_x'] = batched_fov_x
 
-        if hasattr(self.model, 'infer'): 
-            output = self.model.infer(batched_tensor, **infer_kwargs)
-        elif hasattr(self.model.base_model.model, 'infer'): 
-            output = self.model.base_model.model.infer(batched_tensor, **infer_kwargs)
+        if hasattr(self.model, 'infer'):
+            output = self.model.infer(batched_tensor, **infer_kwargs, apply_mask=False)
+        elif hasattr(self.model.base_model.model, 'infer'):
+            output = self.model.base_model.model.infer(batched_tensor, **infer_kwargs, apply_mask=False)
         else: 
             raise AttributeError("Could not find an infer method")
             
@@ -270,7 +270,7 @@ class DatasetAutoParser:
 def run_inference_pipeline(
     input_roots, output_root, lora_config, lora_weight, 
     sampling_ratio=1.0, resize=1024, device="cuda", batch_size=4,
-    lora_rank=96, intrinsics_mode="auto",
+    lora_rank=96, intrinsics_mode="none",
 ):
     parser = DatasetAutoParser()
     if isinstance(input_roots, str): input_roots = [input_roots]

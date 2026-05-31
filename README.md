@@ -60,6 +60,13 @@ CUDA_VISIBLE_DEVICES=7 conda run -n moge310 python \
 
 Add `--mask_mode load` only for the optional internal mask-aware analysis.
 
+> **Note on batch size and intrinsics:** The Decoupled (Bench) dataset contains
+> images of varying resolutions within the same scene. When
+> `--intrinsics_mode load` is used, images of different sizes in a batch are
+> padded to the largest dimensions, which interferes with the intrinsics-based
+> inference. For Decoupled with intrinsics, use `--batch_size 1`. Oblique and
+> Wild are not affected and can safely use `--batch_size 8`.
+
 For non-LoRA checkpoints, use `--model_type full`, `head`, or `neck` and omit `--lora_config`.
 
 More details:

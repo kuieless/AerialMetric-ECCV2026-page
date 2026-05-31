@@ -270,6 +270,6 @@ Decoupled CSV directory
 evaluation script version
 ```
 
-`batch_size` can affect predictions because images in the same batch are padded to the maximum height and width in that batch. To reproduce old LoRA runs, use `--batch_size 8` when GPU memory allows.
+`batch_size` can affect predictions because images in the same batch are padded to the maximum height and width in that batch. To reproduce old LoRA runs, use `--batch_size 8` when GPU memory allows. **Exception:** When evaluating Decoupled (Bench) with `--intrinsics_mode load`, use `--batch_size 1`. The Decoupled dataset contains images of varying resolutions within the same scene, and batch padding interferes with intrinsics-based inference. Oblique and Wild are not affected.
 
 Use `--mask_mode load` only when you intentionally want the optional internal mask-aware analysis.

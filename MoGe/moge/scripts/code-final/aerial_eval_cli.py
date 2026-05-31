@@ -333,7 +333,7 @@ def main():
     parser.add_argument("--decoupled_mask_dir", default="", help="Decoupled mask root, e.g. /data1/szq/Val/decoupled-masks")
 
     parser.add_argument("--batch_size", type=int, default=8, help="Inference batch size; use 8 to reproduce old LoRA runs")
-    parser.add_argument("--intrinsics_mode", choices=["auto", "load", "none"], default="auto",
+    parser.add_argument("--intrinsics_mode", choices=["auto", "load", "none"], default="none",
                         help="auto: use meta.json if present; load: require meta.json and norm-style input roots; none: do not pass fov_x")
     parser.add_argument("--mask_mode", choices=["none", "load"], default="none",
                         help="Load per-sample PNG masks for Decoupled/Oblique and exclude white pixels from evaluation.")

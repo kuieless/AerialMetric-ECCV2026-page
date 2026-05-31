@@ -128,9 +128,9 @@ class LoRABaseline:
         # 4. 执行推理
         with torch.inference_mode():
             if hasattr(self.model, 'infer'):
-                output = self.model.infer(batched_tensor, **infer_kwargs)
+                output = self.model.infer(batched_tensor, **infer_kwargs, apply_mask=False)
             elif hasattr(self.model.base_model.model, 'infer'):
-                output = self.model.base_model.model.infer(batched_tensor, **infer_kwargs)
+                output = self.model.base_model.model.infer(batched_tensor, **infer_kwargs, apply_mask=False)
             else:
                 output = self.model(batched_tensor, **infer_kwargs)
 

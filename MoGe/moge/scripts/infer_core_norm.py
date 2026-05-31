@@ -35,7 +35,7 @@ except ImportError:
 # Base engine
 
 class MogeBaseEngine:
-    def __init__(self, model_path, version='v2', device="cuda", fp16=True, intrinsics_mode="auto"):
+    def __init__(self, model_path, version='v2', device="cuda", fp16=True, intrinsics_mode="none"):
         self.device = torch.device(device)
         self.fp16 = fp16
         if intrinsics_mode not in {"auto", "load", "none"}:
@@ -170,7 +170,7 @@ class MogeBaseEngine:
         if has_fov:
             infer_kwargs['fov_x'] = batched_fov_x
             
-        output = self.model.infer(batched_tensor, **infer_kwargs)
+        output = self.model.infer(batched_tensor, **infer_kwargs, apply_mask=False)
             
         depths = output['depth'].cpu().numpy()
         if depths.ndim == 4: depths = depths.squeeze(1) # [B, 1, H, W] -> [B, H, W]
@@ -250,7 +250,7 @@ def run_base_inference_pipeline(
     resize=1024,
     device="cuda",
     batch_size=4,
-    intrinsics_mode="auto",
+    intrinsics_mode="none",
 ):
     """
     Base model inference entry point.

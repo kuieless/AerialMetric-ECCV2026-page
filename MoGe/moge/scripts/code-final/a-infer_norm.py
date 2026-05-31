@@ -35,7 +35,7 @@ if __name__ == "__main__":
     parser.add_argument("--resize", type=int, default=0, help="Resize size; 0 means original resolution")
     parser.add_argument("--ratio", type=float, default=1.0, help="Sampling ratio")
     parser.add_argument("--batch_size", type=int, required=True, help="Inference batch size; adjust based on GPU memory")
-    parser.add_argument("--intrinsics_mode", choices=["auto", "load", "none"], default="auto",
+    parser.add_argument("--intrinsics_mode", choices=["auto", "load", "none"], default="none",
                         help="auto: use meta.json if present; load: require meta.json; none: do not pass fov_x")
     
     args = parser.parse_args()

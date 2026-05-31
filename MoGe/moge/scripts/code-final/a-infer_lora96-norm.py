@@ -16,7 +16,7 @@ if __name__ == "__main__":
     parser.add_argument("--batch_size", type=int, required=True, help="Inference batch size; adjust based on GPU memory")
     parser.add_argument("--lora_rank", type=int, choices=[64, 96, 128], required=True,
                         help="LoRA rank (r); alpha is set to 2 * rank")
-    parser.add_argument("--intrinsics_mode", choices=["auto", "load", "none"], default="auto",
+    parser.add_argument("--intrinsics_mode", choices=["auto", "load", "none"], default="none",
                         help="auto: use meta.json if present; load: require meta.json; none: do not pass fov_x")
     
     args = parser.parse_args()
