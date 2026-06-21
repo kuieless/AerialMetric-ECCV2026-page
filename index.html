@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="AerialMetric benchmarks and adapts UAV monocular metric depth estimation in real-world aerial scenes.">
+  <meta name="keywords" content="AerialMetric, UAV, monocular depth estimation, metric depth, MoGe2-Aerial">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AerialMetric-ECCV2026-Part2</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+
+  <!-- <link rel="manifest" href="./static/images/site.webmanifest"> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/three.min.js"></script>
+  <script src="./static/js/OrbitControls.js"></script>
+  <script src="./static/js/depth-demo-data.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <!-- <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a> -->
+
+      <!-- <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+          <a class="navbar-item" href="https://latentfusion.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://photoshape.github.io">
+            PhotoShape
+          </a>
+        </div>
+      </div> -->
+    </div>
+
+  </div>
+</nav>
+
+<section class="hero publication-hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">AerialMetric: Benchmarking and Adapting UAV Monocular Metric Depth Estimation in the Real World</h1>
+          
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Zhongqiang Song<sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://guanyingc.github.io/">Guanying Chen</a><sup>1✉</sup>,
+              </span>
+            <span class="author-block">
+              <a href="https://zyqz97.github.io/">Yuqi Zhang</a><sup>2,3</sup>,
+            </span>
+            <span class="author-block">Yin Zou<sup>1</sup>,</span>
+              
+            
+            <span class="author-block">
+              <a href="https://fcyycf.github.io/">Chuanyu Fu</a><sup>1</sup>,</span>
+            <span class="author-block">Zhiyuan Yuan<sup>1</sup>,</span>
+            <span class="author-block">
+               <a href="https://scholar.google.com/citations?user=ei4jR4IAAAAJ&hl=en">Chuan Huang</a><sup>4,2</sup>,</span>
+            
+            <span class="author-block">
+              <a href="https://scholar.google.com.hk/citations?user=1o_qvR0AAAAJ&hl=en">Shuguang Cui</a><sup>3,2</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=PDgp6OkAAAAJ&hl=en">Xiaochun Cao</a><sup>1</sup></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Sun Yat-sen University, Shenzhen Campus,</span>
+            <span class="author-block"><sup>2</sup>FNii-Shenzhen,</span>
+            <span class="author-block"><sup>3</sup>SSE, CUHKSZ,</span>
+            <span class="author-block"><sup>4</sup>SIAS, USTC</span>
+          </div>
+
+ 
+
+          <div class="publication-links">
+          <span class="link-block">
+            <a href="./static/images/AerialMetricDepth_arxiv.pdf" target="_blank" class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">
+                  <i class="fas fa-file-pdf"></i>
+              </span>
+              <span>Paper (PDF)</span>
+            </a>
+          </span>
+              
+              <!-- <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv(TBD)</span>
+                </a>
+              </span>
+              
+              <span class="link-block">
+                <a href="#" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video(TBD)</span>
+                </a>
+              </span> -->
+              
+              <span class="link-block">
+                <a href="https://github.com/kuieless/AerialMetric" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+              
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/Kuiee/AerialMetric-ECCV2026-Part2/tree/main" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Dataset-PartA</span>
+                </a>
+              </span>
+
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/Kuiee/Atlas-01/tree/main" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Dataset-PartB</span>
+                </a>
+              </span>
+          </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser metric-hero">
+  <div class="metric-backdrop" aria-hidden="true"></div>
+  <div class="container is-max-widescreen">
+    <div class="hero-body">
+      <div class="metric-hero-copy section-heading">
+
+        <h2 class="title is-3">Teaser</h2>
+      </div>
+
+      <figure class="metric-teaser-figure">
+        <a href="./static/images/teasernyu.jpg" target="_blank" aria-label="Open the AerialMetric teaser at full resolution">
+          <img src="./static/images/teasernyu.jpg"
+               alt="AerialMetric benchmark overview and qualitative metric depth comparison">
+        </a>
+        <figcaption class="metric-abstract">
+          <p>
+            <strong>Abstract.</strong> This paper addresses the problem of monocular metric depth estimation in aerial UAV imagery. Although recent data-driven methods have achieved remarkable progress in ground-level scenarios, models trained primarily on street-view and indoor datasets exhibit significant domain gaps when applied to aerial viewpoints.
+          </p>
+          <p>
+            To tackle these challenges, we introduce <strong>AerialMetric</strong>, a benchmark dataset designed to evaluate and facilitate the adaptation of monocular metric depth estimation under UAV aerial viewpoints. The dataset consists of four complementary subsets collected from different sources, jointly covering real-world photogrammetry data, controlled aerial acquisition settings, photorealistic synthetic scenes, and in-the-wild Internet imagery. Totally, AerialMetric provides <span class="metric-abstract-highlight">52K real-world</span> and <span class="metric-abstract-highlight">16K synthetic</span> image-depth pairs with reliable metric ground truth.
+          </p>
+          <p>
+            Based on this dataset, we conduct systematic evaluations of existing state-of-the-art models under aerial settings and investigate the impact of viewpoint, altitude, and camera parameters on metric depth prediction. In addition, by fine-tuning representative metric depth models on our dataset, we establish a comprehensive aerial benchmark and achieve state-of-the-art performance across diverse aerial imagery. Our datasets will be made publicly available.
+          </p>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="hero depth-explorer-section">
+  <div class="container is-max-widescreen">
+    <div class="hero-body">
+      <div class="depth-explorer-header section-heading">
+
+        <h2 class="title is-3">Projected 3D Point Maps Reveal Scale Drift</h2>
+        <p class="section-summary">
+          We project GT, MoGe2, and MoGe2-Aerial depth into 3D, making their metric scale differences directly visible.
+        </p>
+      </div>
+
+      <div class="depth-explorer" data-demo-image="./static/images/2/image.jpg">
+        <div class="depth-explorer-grid depth-explorer-grid-flat">
+          <article class="depth-explorer-card depth-explorer-flat-card">
+            <div class="depth-explorer-card-topline">
+              <span class="depth-explorer-panel-label">Input RGB</span>
+              <span class="depth-explorer-note">Pick P1, P2, or P3.</span>
+            </div>
+            <div class="depth-explorer-image-stage">
+              <img class="depth-explorer-image" src="./static/images/1/image.jpg" alt="RGB scene for the 3D depth demo">
+              <div class="depth-explorer-markers" data-role="markers"></div>
+            </div>
+          </article>
+
+          <article class="depth-explorer-card depth-explorer-flat-card">
+            <div class="depth-explorer-card-topline">
+              <span class="depth-explorer-panel-label">GT</span>
+            </div>
+            <div class="depth-explorer-canvas-stage">
+              <canvas class="depth-explorer-canvas" data-role="canvas-gt"></canvas>
+              <div class="depth-explorer-probe-bubble" data-role="bubble-gt"></div>
+            </div>
+          </article>
+
+          <article class="depth-explorer-card depth-explorer-flat-card">
+            <div class="depth-explorer-card-topline">
+              <span class="depth-explorer-panel-label">MoGe2</span>
+            </div>
+            <div class="depth-explorer-canvas-stage">
+              <canvas class="depth-explorer-canvas" data-role="canvas-baseline"></canvas>
+              <div class="depth-explorer-probe-bubble" data-role="bubble-baseline"></div>
+            </div>
+          </article>
+
+          <article class="depth-explorer-card depth-explorer-flat-card">
+            <div class="depth-explorer-card-topline">
+              <span class="depth-explorer-panel-label">MoGe2-Aerial</span>
+            </div>
+            <div class="depth-explorer-canvas-stage">
+              <canvas class="depth-explorer-canvas" data-role="canvas-lora96"></canvas>
+              <div class="depth-explorer-probe-bubble" data-role="bubble-lora96"></div>
+            </div>
+          </article>
+        </div>
+
+        <div class="depth-explorer-demo-rail" aria-label="3D demo selector">
+          <button class="depth-explorer-demo-card is-active" type="button" data-scene="scene1">
+            <img src="./static/images/1/image.jpg" alt="Scene 01 RGB preview">
+            <div class="depth-explorer-demo-copy">
+              <strong>Scene 01</strong>
+              <span>Curved campus block</span>
+            </div>
+          </button>
+          <button class="depth-explorer-demo-card" type="button" data-scene="scene2">
+            <img src="./static/images/2/image.jpg" alt="Scene 02 RGB preview">
+            <div class="depth-explorer-demo-copy">
+              <strong>Scene 02</strong>
+              <span>Dense facade view</span>
+            </div>
+          </button>
+          <button class="depth-explorer-demo-card" type="button" data-scene="scene3">
+            <img src="./static/images/000025/image.jpg" alt="Scene 03 RGB preview">
+            <div class="depth-explorer-demo-copy">
+              <strong>Scene 03</strong>
+              <span>Demo 000025</span>
+            </div>
+          </button>
+          <button class="depth-explorer-demo-card" type="button" data-scene="scene4">
+            <img src="./static/images/000099/image.jpg" alt="Scene 04 RGB preview">
+            <div class="depth-explorer-demo-copy">
+              <strong>Scene 04</strong>
+              <span>Demo 000099</span>
+            </div>
+          </button>
+          <button class="depth-explorer-demo-card" type="button" data-scene="scene5">
+            <img src="./static/images/1ddfb/image.jpg" alt="Scene 05 RGB preview">
+            <div class="depth-explorer-demo-copy">
+              <strong>Scene 05</strong>
+              <span>Demo 1ddfb</span>
+            </div>
+          </button>
+          <button class="depth-explorer-demo-card" type="button" data-scene="scene6">
+            <img src="./static/images/32d6d/image.jpg" alt="Scene 06 RGB preview">
+            <div class="depth-explorer-demo-copy">
+              <strong>Scene 06</strong>
+              <span>Demo 32d6d</span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+
+      <div id="results-carousel" class="carousel results-carousel" data-slides-to-show="1">
+
+        <div class="item">
+          <img src="./static/images/figure-piplinefcy0304.jpg" alt="Aerial Depth Result 1" style="width: 100%; height: auto; border-radius: 8px;">
+        </div>
+
+        <div class="item">
+          <img src="./static/images/fig3dataset.jpg" alt="Aerial Depth Result 2" style="width: 100%; height: auto; border-radius: 8px;">
+        </div>
+
+        <div class="item">
+          <img src="./static/images/your_large_image_3.jpg" alt="Aerial Depth Result 3" style="width: 100%; height: auto; border-radius: 8px;">
+        </div> -->
+
+        <!-- </div>
+    </div>
+  </div> -->
+<!-- </section> -->
+<style>
+  /* 只保留顶部大轮播图的漏边效果即可 */
+  .hero.is-white .results-carousel .slider-container {
+    overflow: visible !important;
+  }
+  .hero.is-white .results-carousel .item {
+    padding: 0 15px;
+  }
+</style>
+
+<section class="hero is-white is-small" style="padding-top: 2rem;">
+  <div class="hero-body">
+
+    <div class="container is-max-desktop">
+
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-full-width section-heading">
+
+          <h2 class="title is-3">Data Collection Pipeline</h2>
+          <p class="section-summary">
+            A hybrid construction pipeline turns real captures, reconstructed scenes, and synthetic views into reliable metric depth supervision.
+          </p>
+        </div>
+      </div>
+
+      <figure class="overview-panel">
+        <a href="./static/images/figure-piplinefcy0304.jpg" target="_blank">
+          <img src="./static/images/figure-piplinefcy0304.jpg"
+               alt="AerialMetric data collection pipeline">
+        </a>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <div class="section-heading">
+
+          <h2 class="title is-3">The AerialMetric Dataset</h2>
+          <p class="section-summary">
+            To address the severe domain gap between ground-level training data and aerial perspectives, we introduce <strong>AerialMetric</strong>, built through a hybrid construction pipeline. It comprises four complementary components:
+          </p>
+        </div>
+
+        <div class="tabs is-centered is-toggle is-toggle-rounded is-small" id="dataset-tabs" style="margin-bottom: 20px;">
+          <ul>
+            <li class="is-active" data-tab="tab-overview"><a><span>Overview</span></a></li>
+            <li data-tab="tab-oblique"><a><span>Oblique</span></a></li>
+            <li data-tab="tab-decoupled"><a><span>Decoupled</span></a></li>
+            <li data-tab="tab-synthetic"><a><span>Synthetic</span></a></li>
+            <li data-tab="tab-wild"><a><span>Wild</span></a></li>
+          </ul>
+        </div>
+
+        <div id="tab-content" style="background-color: #fcfcfc; padding: 20px; border-radius: 12px; border: 1px solid #f0f0f0;">
+
+          <div class="dataset-content" id="tab-overview" style="display: block;">
+            <a href="./static/images/fig3dataset.jpg" target="_blank">
+              <img src="./static/images/fig3dataset.jpg"
+                   alt="AerialMetric dataset overview"
+                   style="width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+            </a>
+          </div>
+
+          <div class="dataset-content" id="tab-oblique" style="display: none;">
+            <div class="content has-text-justified">
+              <p><strong>AerialMetric-Oblique (47K pairs):</strong> Built from community-released raw data and 3D assets (e.g., UrbanBIS and GauU-Scene V2). We reconstruct the scenes when necessary and project the processed LiDAR point clouds or meshes into the camera views to generate scale-consistent metric depth maps.</p>
+            </div>
+            <img src="./static/images/supfig2-cases.jpg" alt="Oblique Dataset" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+          </div>
+
+          <div class="dataset-content" id="tab-decoupled" style="display: none;">
+            <div class="content has-text-justified">
+            <p><strong>AerialMetric-Decoupled (4.6K pairs):</strong> Captured using an RTK-equipped DJI M300 UAV. We strictly decouple core variables for rigorous evaluation: each scene comprises <span class="dataset-emphasis">16 distinct flight trajectories</span>, systematically combining <span class="dataset-emphasis">4 pitch angles</span> (-90°, -75°, -60°, -45°), <span class="dataset-emphasis">2 altitudes</span> (80m, 120m), and <span class="dataset-emphasis">2 FOVs</span> (63°, 83°). In the figure, the dense trajectories correspond to repeated flights under controlled single-variable changes, while the sparse trajectories are supplementary oblique photogrammetry flights used for mapping.</p>
+            </div>
+            <img src="./static/images/supfig5-trail.jpg" alt="Decoupled Dataset" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+          </div>
+
+          <div class="dataset-content" id="tab-synthetic" style="display: none;">
+            <div class="content has-text-justified">
+              <p><strong>AerialMetric-Synthetic (16K pairs):</strong> Photorealistic sequences rendered via Google Earth Studio and Unreal Engine, enabling controlled decoupling of flight parameters across 32 parameter combinations, including extreme viewpoints such as ultra-low flights and acute side views.</p>
+            </div>
+            <img src="./static/images/eng4.png" alt="Synthetic Dataset" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+          </div>
+
+          <div class="dataset-content" id="tab-wild" style="display: none;">
+            <div class="content has-text-justified">
+              <p><strong>AerialMetric-Wild (1.1K pairs, 100 scenes):</strong> Unconstrained internet drone videos annotated with pseudo-metric depth via a human-in-the-loop scale recovery framework.</p>
+            </div>
+            <img src="./static/images//Vertical_Gallery_Final.jpg" alt="Wild Dataset" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('#dataset-tabs li');
+    const contents = document.querySelectorAll('.dataset-content');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('is-active'));
+        contents.forEach(c => c.style.display = 'none');
+
+        tab.classList.add('is-active');
+        const targetId = tab.getAttribute('data-tab');
+        document.getElementById(targetId).style.display = 'block';
+      });
+    });
+
+    const robustnessTabs = document.querySelectorAll('#robustness-tabs li');
+    const robustnessContents = document.querySelectorAll('.robustness-content');
+
+    robustnessTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        robustnessTabs.forEach(t => t.classList.remove('is-active'));
+        robustnessContents.forEach(c => c.style.display = 'none');
+
+        tab.classList.add('is-active');
+        const targetId = tab.getAttribute('data-robustness-tab');
+        document.getElementById(targetId).style.display = 'block';
+      });
+    });
+  });
+</script>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <div class="section-heading">
+   
+          <h2 class="title is-3">Qualitative Results</h2>
+          <p class="section-summary">
+            Zero-shot transfer of state-of-the-art ground-domain models (e.g., ZoeDepth, DepthPro, UniDepthV2) to aerial imagery often results in severe scale ambiguity and geometric distortion. By adapting the MoGe2 foundation model on our dataset (denoted as <strong>MoGe2-Aerial</strong>), we recover more reliable metric scale in real-world aerial scenes.
+          </p>
+        </div>
+        
+        <div class="has-text-centered">
+          <a href="./static/images/qualitative_results.jpg" target="_blank">
+            <img src="./static/images/sota-sup12.jpg" alt="Qualitative Results Comparison" style="width: 100%; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          </a>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <div class="section-heading">
+
+          <h2 class="title is-3">Decoupled Flight Parameter Analysis & Robustness</h2>
+        </div>
+
+        <div class="tabs is-centered is-toggle is-toggle-rounded is-small robustness-tabs" id="robustness-tabs">
+          <ul>
+            <li class="is-active" data-robustness-tab="tab-robustness-pitch"><a><span>All parameters</span></a></li>
+            <li data-robustness-tab="tab-robustness-fov-altitude"><a><span>FOV & Altitude</span></a></li>
+            <li data-robustness-tab="tab-robustness-heatmap"><a><span>Altitude & Pitch</span></a></li>
+          </ul>
+        </div>
+
+        <div class="robustness-card">
+          <div class="robustness-content" id="tab-robustness-pitch" style="display: block;">
+            <div class="content has-text-justified">
+              <p><strong>Parameters robustness:</strong> Baseline models exhibit severe, non-monotonic degradation regarding camera pitch and altitude, suffering catastrophic failures at strictly nadir (-90°) and highly oblique (-45°) angles. Our fine-tuned <strong>MoGe2-Aerial</strong> demonstrates exceptional stability across all evaluated pitch angles, altitudes, and FOVs.</p>
+            </div>
+            <a href="./static/images/lidar.jpg" target="_blank">
+              <img src="./static/images/lidar.jpg"
+                   alt="Robustness analysis across camera pitch">
+            </a>
+          </div>
+
+          <div class="robustness-content" id="tab-robustness-fov-altitude" style="display: none;">
+            <div class="content has-text-justified">
+              <p><strong>FOV and altitude robustness:</strong> Robustness analysis of depth estimation models (MoGe2, UniDepthV2, and MoGe2-Aerial) across different fields of view (FOVs) and altitudes. Results report the average δ1 on the AerialMetric-Decoupled dataset.</p>
+            </div>
+            <a href="./static/images/robustness_fov_altitude.png" target="_blank">
+              <img src="./static/images/robustness_fov_altitude.png"
+                   alt="Robustness analysis across FOV and altitude">
+            </a>
+          </div>
+
+          <div class="robustness-content" id="tab-robustness-heatmap" style="display: none;">
+            <div class="content has-text-justified">
+              <p><strong>Heatmap analysis:</strong> Heatmap visualization of metric accuracy across altitudes and pitch angles.</p>
+            </div>
+            <a href="./static/images/robustness_heatmap_pitch_altitude.png" target="_blank">
+              <img src="./static/images/robustness_heatmap_pitch_altitude.png"
+                   alt="Heatmap visualization of metric accuracy across altitudes and pitch angles">
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{song2026aerialmetric,
+  title     = {AerialMetric: Benchmarking and Adapting UAV Monocular Metric Depth Estimation in the Real World},
+  author    = {Song, Zhongqiang and Chen, Guanying and Zhang, Yuqi and Zou, Yin and Fu, Chuanyu and Yuan, Zhiyuan and Huang, Chuan and Cui, Shuguang and Cao, Xiaochun},
+  booktitle = {European Conference on Computer Vision (ECCV)},
+  year      = {2026}
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/images/AerialMetricDepth_arxiv.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
