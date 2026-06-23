@@ -15,8 +15,8 @@
   </defs>
   <rect width="512" height="512" rx="112" fill="url(#bg)"/>
   <g filter="url(#softShadow)">
-    <path d="M116 352 176 176h52l60 176h-47l-11-38h-59l-11 38h-44Zm66-75h37l-18-64-19 64Zm126 75V176h50l42 76 42-76h50v176h-43V243l-36 66h-26l-36-66v109h-43Z" fill="#ffffff"/>
-    <path d="M118 393c42-38 77-39 114-12 34 25 67 21 104-19 22-24 42-33 58-26" fill="none" stroke="url(#ridge)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="394" cy="336" r="14" fill="#f59e0b"/>
+    <text x="256" y="304" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="174" font-weight="800" letter-spacing="-10" text-anchor="middle">AM</text>
+    <path d="M128 366c40-34 78-35 116-8 35 25 70 21 108-17 20-20 41-28 62-16" fill="none" stroke="url(#ridge)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="414" cy="325" r="13" fill="#f59e0b"/>
   </g>
 </svg>
