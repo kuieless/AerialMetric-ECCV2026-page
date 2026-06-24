@@ -333,7 +333,7 @@ function initDepthExplorer() {
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
     const material = new THREE.PointsMaterial({
-      size: modelKey === 'lora96' ? 0.03 : 0.026,
+      size: modelKey === 'lora96' ? 0.024 : 0.021,
       vertexColors: true,
       sizeAttenuation: true,
     });
