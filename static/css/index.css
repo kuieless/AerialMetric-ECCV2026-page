@@ -475,6 +475,11 @@ body {
 }
 
 .publication-links {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem;
+  justify-content: center;
   margin-top: 0.8rem;
 }
 
@@ -489,6 +494,83 @@ body {
   background: rgba(255, 255, 255, 0.92);
   border-color: rgba(56, 189, 248, 0.24);
   color: #0f172a;
+}
+
+.dataset-link-group {
+  align-items: center;
+  background: rgba(248, 250, 252, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 999px;
+  display: inline-flex;
+  gap: 0.1rem;
+  margin: 5px 0;
+  padding: 0.15rem;
+}
+
+.dataset-link-label {
+  align-items: center;
+  color: #334155;
+  display: inline-flex;
+  font-size: 0.86rem;
+  font-weight: 700;
+  gap: 0.35rem;
+  padding: 0 0.7rem;
+  white-space: nowrap;
+}
+
+.dataset-link-label .icon {
+  color: #64748b;
+}
+
+.dataset-link-group .link-block a {
+  margin: 0;
+}
+
+.dataset-platform-link {
+  border: 1px solid transparent !important;
+  box-shadow: none !important;
+  font-size: 0.9rem;
+  min-height: 2.25em;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.dataset-platform-link-huggingface {
+  background: rgba(255, 210, 30, 0.18) !important;
+  border-color: rgba(210, 164, 0, 0.5) !important;
+  color: #8a6500 !important;
+}
+
+.dataset-platform-link-huggingface:hover {
+  background: rgba(255, 210, 30, 0.32) !important;
+  border-color: rgba(210, 164, 0, 0.75) !important;
+  color: #654a00 !important;
+}
+
+.dataset-platform-link-baidu {
+  background: rgba(6, 167, 255, 0.12) !important;
+  border-color: rgba(6, 145, 224, 0.42) !important;
+  color: #0879b8 !important;
+}
+
+.dataset-platform-link-baidu:hover {
+  background: rgba(6, 167, 255, 0.24) !important;
+  border-color: rgba(6, 145, 224, 0.7) !important;
+  color: #075a89 !important;
+}
+
+@media screen and (max-width: 600px) {
+  .dataset-link-group {
+    border-radius: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0.35rem;
+  }
+
+  .dataset-link-label {
+    flex-basis: 100%;
+    justify-content: center;
+    padding: 0.2rem 0.7rem;
+  }
 }
 
 .publication-authors a {
