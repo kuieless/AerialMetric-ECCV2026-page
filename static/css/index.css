@@ -498,11 +498,13 @@ body {
 
 .dataset-link-group {
   align-items: center;
-  display: inline-grid;
-  gap: 0.35rem;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  background: rgba(248, 250, 252, 0.9);
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 999px;
+  display: inline-flex;
+  gap: 0.1rem;
   margin: 5px 0;
-  min-width: 390px;
+  padding: 0.15rem;
 }
 
 .dataset-link-label {
@@ -512,11 +514,7 @@ body {
   font-size: 0.86rem;
   font-weight: 700;
   gap: 0.35rem;
-  grid-column: 1 / -1;
-  justify-content: center;
-  letter-spacing: 0.08em;
-  padding: 0.1rem 0.7rem 0.05rem;
-  text-transform: uppercase;
+  padding: 0 0.7rem;
   white-space: nowrap;
 }
 
@@ -525,9 +523,7 @@ body {
 }
 
 .dataset-link-group .link-block a {
-  justify-content: center;
   margin: 0;
-  width: 100%;
 }
 
 .dataset-platform-link {
@@ -539,37 +535,41 @@ body {
 }
 
 .dataset-platform-link-huggingface {
-  background: #ffd21e !important;
-  border-color: #e2b900 !important;
-  color: #322700 !important;
+  background: rgba(255, 210, 30, 0.18) !important;
+  border-color: rgba(210, 164, 0, 0.5) !important;
+  color: #8a6500 !important;
 }
 
 .dataset-platform-link-huggingface:hover {
-  background: #f4c400 !important;
-  border-color: #c99f00 !important;
-  color: #241c00 !important;
+  background: rgba(255, 210, 30, 0.32) !important;
+  border-color: rgba(210, 164, 0, 0.75) !important;
+  color: #654a00 !important;
 }
 
 .dataset-platform-link-baidu {
-  background: #06a7ff !important;
-  border-color: #078ed5 !important;
-  color: #ffffff !important;
+  background: rgba(6, 167, 255, 0.12) !important;
+  border-color: rgba(6, 145, 224, 0.42) !important;
+  color: #0879b8 !important;
 }
 
 .dataset-platform-link-baidu:hover {
-  background: #078ed5 !important;
-  border-color: #0677b5 !important;
-  color: #ffffff !important;
+  background: rgba(6, 167, 255, 0.24) !important;
+  border-color: rgba(6, 145, 224, 0.7) !important;
+  color: #075a89 !important;
 }
 
 @media screen and (max-width: 600px) {
   .dataset-link-group {
-    grid-template-columns: 1fr;
-    min-width: min(100%, 280px);
+    border-radius: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0.35rem;
   }
 
   .dataset-link-label {
-    grid-column: auto;
+    flex-basis: 100%;
+    justify-content: center;
+    padding: 0.2rem 0.7rem;
   }
 }
 
